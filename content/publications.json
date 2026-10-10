@@ -1,0 +1,92 @@
+{
+  "papers": [
+    {
+      "title": "SuperSycophantic: Stress-Testing Frontier Models from Single- to Multi-Turn Sycophancy",
+      "authors": [
+        "Terry Jingchen Zhang",
+        "Oscar Yasunaga",
+        "Wenyuan Jiang",
+        "Jessica Bo",
+        "Florent Draye",
+        "Aydin Javadov",
+        "Arth Singh",
+        "Lucille Muir",
+        "Victoria Oldemburgo De Mello",
+        "Bernhard Schölkopf",
+        "Zhijing Jin"
+      ],
+      "venue": "NeurIPS 2026",
+      "status": "accepted",
+      "links": {
+        "Code": "https://github.com/AI4Collaboration/SuperSycophantic"
+      }
+    },
+    {
+      "title": "RLViz: An Interactive Visualization to Aid Student Understanding of Bellman Equations",
+      "authors": [
+        "Oscar Yasunaga",
+        "Dylan Ma",
+        "Chandra Gummaluru"
+      ],
+      "venue": "Submitting to AAAI Symposium on Educational Advances in Artificial Intelligence 2026 (in preparation)",
+      "status": "prep",
+      "links": {
+        "Code": "https://github.com/chandra-gummaluru/rlviz"
+      }
+    },
+    {
+      "title": "GOES-ABI Data Cube: Eight Years of Unified Geostationary Satellite Observations",
+      "authors": [
+        "Mickell Als*",
+        "Misha Schwartz*",
+        "Chen Yu-An",
+        "Oscar Yasunaga",
+        "Benjamin Lee",
+        "Steve Easterbrook"
+      ],
+      "venue": "Climate Informatics 2026",
+      "status": "accepted",
+      "links": {}
+    },
+    {
+      "title": "From Directions to Cones: Exploring Multidimensional Representations of Propositional Facts",
+      "authors": [
+        "Stanley Yu*",
+        "Vaidehi Bulusu*",
+        "Oscar Yasunaga",
+        "Clayton Lau",
+        "Cole Blondin",
+        "Sean O'Brien",
+        "Kevin Zhu",
+        "Vasu Sharma"
+      ],
+      "venue": "ACL Student Research Workshop 2025",
+      "status": "accepted",
+      "links": {}
+    }
+  ],
+  "projects": [
+    {
+      "title": "SycoScope: Are sycophancy types different in activation space?",
+      "with": "Jinesis AI Lab",
+      "when": "2026",
+      "summary": "Tests whether the fragmented definitions of sycophancy across datasets correspond to distinct representations, comparing probes, steering, and sparse autoencoders.",
+      "link": "https://github.com/oscaryas/sycoscope",
+      "linkLabel": "Code"
+    },
+    {
+      "title": "Jacobians and generalization",
+      "with": "With Haoming Meng",
+      "when": "2026",
+      "summary": "Compares SVD-based and eigenvalue-based metrics of layer Jacobians and uses non-normality to quantify where they disagree.",
+      "link": ""
+    },
+    {
+      "title": "Geometry of Sycophancy",
+      "with": "UofT Machine Intelligence Student Team (UTMIST)",
+      "when": "2025 to 2026",
+      "summary": "PCA and steering on sycophancy datasets. The original sycophancy dataset showed no clustering, and steering worked in-domain but gave mixed results across domains.",
+      "link": ""
+    }
+  ]
+}

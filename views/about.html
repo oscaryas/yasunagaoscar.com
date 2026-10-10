@@ -1,0 +1,444 @@
+<style>
+  /* Cooked mode styles, scoped to .desk so the rest of the site stays clean */
+  .desk {
+    --chrome: #c0c0c0; --chrome-hi: #fff; --chrome-lo: #808080; --chrome-dk: #000;
+    --title: #000080; --title-2: #1084d0;
+    --yellow: #ff0; --red: #f00; --lime: #0f0; --link: #0000ee; --ink: #000;
+    color: var(--ink);
+    font: 15px/1.45 Tahoma, Verdana, "Segoe UI", sans-serif;
+    background: repeating-conic-gradient(var(--desk-2) 0 25%, var(--desk) 0 50%) 0 0 / 8px 8px;
+    min-height: 100vh;
+  }
+  .desk a { color: var(--link); }
+  .desk :focus-visible { outline: 3px dashed var(--red); outline-offset: 2px; }
+
+  .adbar {
+    background: var(--ink); color: var(--lime); display: flex; align-items: stretch;
+    border-bottom: 2px solid var(--lime);
+  }
+  .ticker { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; padding: 7px 0; font: bold 14px/1 "Courier New", monospace; }
+  .ticker span { padding: 0 14px; }
+  .ads-off {
+    flex: none; border: 0; border-left: 2px solid var(--lime); background: var(--ink); color: var(--yellow);
+    font: bold 13px Tahoma, sans-serif; padding: 0 14px; cursor: pointer;
+  }
+  .ads-off:hover, .ads-mute:hover { background: #222; }
+  .ads-mute {
+    flex: none; border: 0; border-left: 2px solid var(--lime); background: var(--ink); color: var(--yellow);
+    font-size: 16px; padding: 0 12px; cursor: pointer;
+  }
+  .ads-mute[aria-pressed="true"] { opacity: 0.7; }
+
+  .desk-page { max-width: 1040px; margin: 0 auto; padding: 20px 14px 60px; }
+
+  .win {
+    background: var(--chrome);
+    border: 2px solid; border-color: var(--chrome-hi) var(--chrome-dk) var(--chrome-dk) var(--chrome-hi);
+    box-shadow: inset -1px -1px var(--chrome-lo), inset 1px 1px #dfdfdf;
+    padding: 3px;
+  }
+  .win-title {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: linear-gradient(90deg, var(--title), var(--title-2));
+    color: #fff; font-weight: bold; font-size: 13px; padding: 3px 4px 3px 6px;
+  }
+  .win-title .btns { display: flex; gap: 2px; }
+  .win-title .btns span, .xbtn {
+    width: 18px; height: 16px; display: grid; place-items: center;
+    background: var(--chrome); color: var(--ink); font: bold 11px/1 Tahoma, sans-serif;
+    border: 1.5px solid; border-color: var(--chrome-hi) var(--chrome-dk) var(--chrome-dk) var(--chrome-hi);
+  }
+  .xbtn { cursor: pointer; padding: 0; }
+  .xbtn:active { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); }
+  .win.closing { animation: winclose 0.22s steps(3) forwards; pointer-events: none; }
+  @keyframes winclose { to { transform: scale(0.2); opacity: 0; } }
+  .ad-hot .win-body { text-align: center; }
+  .hot-photo {
+    display: block; width: 180px; max-width: 60%; height: auto; aspect-ratio: 1; object-fit: cover;
+    margin: 4px auto 12px; background: #fff; padding: 3px;
+    border: 2px solid; border-color: var(--chrome-lo) var(--chrome-hi) var(--chrome-hi) var(--chrome-lo);
+  }
+  .grid > .win { display: flex; flex-direction: column; }
+  .grid > .win > .win-body { flex: 1; }
+  .win-body { padding: 14px; }
+
+  .hero { text-align: center; }
+  .hero .win-body { background: var(--yellow); border: 4px dashed var(--red); margin: 4px; }
+  .hero h1 {
+    margin: 0 0 6px;
+    overflow-wrap: anywhere;
+    font: 900 clamp(1.5rem, 7.2vw, 4.6rem)/0.95 Impact, "Arial Black", Haettenschweiler, sans-serif;
+    color: var(--red); text-transform: uppercase; letter-spacing: 0.01em;
+    -webkit-text-stroke: 1.5px var(--ink); text-shadow: 4px 4px 0 var(--ink);
+    animation: throb 0.9s steps(2) infinite;
+  }
+  @keyframes throb { 50% { color: var(--title); } }
+  .hero .sub {
+    font: bold clamp(1.05rem, 2.4vw, 1.4rem)/1.3 "Comic Sans MS", "Comic Neue", "Chalkboard SE", cursive;
+    margin: 0 auto 16px; max-width: 42ch;
+  }
+  .counter { display: inline-flex; gap: 2px; margin-top: 10px; vertical-align: middle; }
+  .counter b { background: var(--ink); color: var(--lime); font: bold 20px/1 "Courier New", monospace; padding: 4px 5px; min-width: 20px; }
+
+  .btn {
+    display: inline-block; cursor: pointer; text-decoration: none;
+    font: bold 17px/1.1 Tahoma, Verdana, sans-serif; color: var(--ink) !important;
+    background: var(--chrome); padding: 10px 18px;
+    border: 2px solid; border-color: var(--chrome-hi) var(--chrome-dk) var(--chrome-dk) var(--chrome-hi);
+    box-shadow: inset -1px -1px var(--chrome-lo);
+  }
+  .btn:active { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); box-shadow: inset 1px 1px var(--chrome-lo); }
+  .btn.go { background: var(--lime); font: 900 clamp(1.2rem, 3vw, 1.7rem)/1 Impact, "Arial Black", sans-serif; text-transform: uppercase; padding: 14px 26px; letter-spacing: 0.03em; }
+  .btn.go.red { background: var(--red); color: var(--yellow) !important; }
+
+  .grid { display: grid; gap: 18px; margin-top: 22px; grid-template-columns: repeat(12, 1fr); }
+  .span-7 { grid-column: span 7; } .span-5 { grid-column: span 5; }
+  .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-12 { grid-column: span 12; }
+  @media (max-width: 760px) { .grid > * { grid-column: span 12; } }
+
+  .ad h2 { margin: 0 0 8px; font: 900 clamp(1.3rem, 2.8vw, 1.9rem)/1.05 Impact, "Arial Black", sans-serif; text-transform: uppercase; }
+  .ad p { margin: 0 0 12px; }
+  .ad .fine { font-size: 11px; color: #333; margin-top: 10px; }
+
+  .ad-timer .win-body { background: #fff; color: var(--red); text-align: center; }
+  .ad-timer h2 { color: var(--red); }
+  .ad-timer .timer-btn { background: var(--chrome); color: var(--red) !important; }
+  .ad-timer .clock { display: block; width: fit-content; margin: 4px auto 16px; }
+  .clock { font: bold clamp(2rem, 6vw, 3rem)/1 "Courier New", monospace; background: var(--ink); color: var(--red); display: inline-block; padding: 6px 12px; margin: 4px 0 12px; }
+
+  .ad-trick .win-body { background: #ffe4f2; }
+  .ad-trick h2 { color: #c2007a; font: italic 700 clamp(1.4rem, 3vw, 2rem)/1.1 Georgia, "Times New Roman", serif; text-transform: none; }
+  .ad-trick ol { margin: 0 0 12px; padding-left: 1.3em; }
+
+  /* Blog posts as ads */
+  .ad-post .win-body { display: flex; flex-direction: column; gap: 8px; }
+  .ad-post h2 { margin: 0; }
+  .ad-post h2 a { color: inherit !important; text-decoration: none; }
+  .ad-post .btn { align-self: flex-start; margin-top: auto; }
+  .ad-post .win-body { background: #fff; }
+  .ad-post h2 { color: var(--ink); }
+  .ad-form .win-body { background: var(--chrome); }
+  .ad-form h2 { color: var(--title); font: bold 22px/1.2 Tahoma, sans-serif; text-transform: none; }
+  .ad-form form { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+  .ad-form .full { grid-column: 1 / -1; }
+  @media (max-width: 560px) { .ad-form form { grid-template-columns: 1fr; } }
+  .ad-form label { display: grid; gap: 3px; font-size: 13px; font-weight: bold; }
+  .ad-form input, .ad-form select, .ad-form textarea {
+    font: 15px Tahoma, Verdana, sans-serif; padding: 5px 6px; background: #fff; color: var(--ink); width: 100%;
+    border: 2px solid; border-color: var(--chrome-lo) var(--chrome-hi) var(--chrome-hi) var(--chrome-lo);
+    box-shadow: inset 1px 1px var(--chrome-dk);
+  }
+  .ad-form textarea { min-height: 120px; resize: vertical; }
+  .err { color: #b00000; font-size: 12px; font-weight: normal; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .status { grid-column: 1 / -1; margin: 0; padding: 8px 10px; background: #fff; border: 1px solid var(--ink); }
+  .status[hidden] { display: none; }
+
+  .desk-foot { margin-top: 28px; text-align: center; color: #fff; font-size: 12px; }
+  .blink { color: var(--yellow); animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { visibility: hidden; } }
+
+  .popup { position: fixed; right: 18px; bottom: 18px; width: min(340px, calc(100vw - 36px)); z-index: 50; animation: pop 0.25s steps(3) both; }
+  .popup[hidden] { display: none; }
+  @keyframes pop { from { transform: scale(0.4); opacity: 0; } }
+  .popup .win-body { background: #fff; text-align: center; }
+  .popup h2 { margin: 0 0 6px; font: 900 1.7rem/1 Impact, sans-serif; color: var(--red); text-transform: uppercase; }
+
+  /* Mode switching: clean is the default; cooked hides the sidebar and goes full width */
+  body.clean .desk, body.clean .popup { display: none !important; }
+  body:not(.clean) .clean-about { display: none; }
+  body:not(.clean) .shell { display: block; max-width: none; padding: 0; }
+  body:not(.clean) .profile { display: none; }
+
+  /* "Turn on ads" button */
+  .ads-cta { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin: -12px 0 6px; }
+  .ads-on {
+    font: bold 15px Tahoma, Verdana, sans-serif; color: #000; cursor: pointer; padding: 8px 14px;
+    background: #c0c0c0; border: 2px solid; border-color: #fff #000 #000 #fff; box-shadow: inset -1px -1px #808080;
+  }
+  .ads-on:active { border-color: #000 #fff #fff #000; }
+  @media (max-width: 520px) { .ads-cta { margin-top: 0; } }
+
+</style>
+
+<div class="about-page">
+
+<!-- ================= COOKED ================= -->
+<div class="desk">
+  <div class="adbar">
+    <div class="ticker"><span>Lorem ipsum dolor sit amet</span></div>
+    <button class="ads-mute" type="button" id="ads-mute" aria-pressed="false" aria-label="Mute sound">🔊</button>
+    <button class="ads-off" type="button" data-mode="clean">Turn off the ads</button>
+  </div>
+
+  <div class="desk-page">
+    <section class="win hero" aria-labelledby="hero-h">
+      <div class="win-title"><span>🏆 WINNER!!! - Internet Explorer</span><span class="btns"><span aria-hidden="true">_</span><span aria-hidden="true">□</span><button type="button" class="xbtn win-close" aria-label="Close this ad">×</button></span></div>
+      <div class="win-body">
+        <h1 id="hero-h">Congratulations!!!<br>You've won a meeting</h1>
+        <p class="sub">You are visitor number
+          <span class="counter" id="counter" aria-live="polite"><b>0</b><b>0</b><b>0</b><b>0</b><b>0</b><b>0</b></span>
+          and have been selected to talk to Oscar Yasunaga.</p>
+        <a class="btn go" data-ad="hero-win" data-cta="calendly" href="#contact">Click here to claim your prize</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <article class="win ad ad-timer span-6" aria-labelledby="ad2">
+        <div class="win-title"><span>Book a meeting</span><span class="btns"><button type="button" class="xbtn win-close" aria-label="Close this ad">×</button></span></div>
+        <div class="win-body">
+          <h2 id="ad2">Book meeting before it expires</h2>
+          <div class="clock" id="clock" aria-hidden="true">09:59</div>
+          <a class="btn go timer-btn" data-ad="timer" data-cta="calendly" href="#contact">Click here</a>
+        </div>
+      </article>
+
+
+
+      <article class="win ad ad-trick ad-hot span-6" aria-labelledby="ad7">
+        <div class="win-title"><span></span><span class="btns"><button type="button" class="xbtn win-close" aria-label="Close this ad">×</button></span></div>
+        <div class="win-body">
+          <h2 id="ad7">Hot AI safety researcher in your area</h2>
+          <img class="hot-photo" src="/photo.jpg" alt="Oscar Yasunaga" width="180" height="180">
+          <p>Studies physics at UofT. Probes language models for truth and sycophancy. Teaches AI safety at TAISI and TARA.</p>
+        </div>
+      </article>
+
+{{adPosts}}
+
+      <section class="win ad ad-form span-12" id="contact" aria-labelledby="form-h">
+        <div class="win-title"><span>📧 Claim Form.exe</span><span class="btns"><span aria-hidden="true">_</span><span aria-hidden="true">□</span><button type="button" class="xbtn win-close" aria-label="Close this ad">×</button></span></div>
+        <div class="win-body">
+          <h2 id="form-h">Send Oscar a message</h2>
+          <p>Prefer to pick a time? <a data-ad="form-cal" data-cta="calendly" href="#contact">Book a meeting</a>. Prefer email? <a data-ad="form-mail" data-cta="email" href="#contact">Write directly</a>.</p>
+          <form id="contact-form" novalidate>
+            <label>Name
+              <input name="name" autocomplete="name" required maxlength="100">
+              <span class="err" data-err="name"></span>
+            </label>
+            <label>Email
+              <input name="email" type="email" autocomplete="email" required maxlength="254">
+              <span class="err" data-err="email"></span>
+            </label>
+            <label class="full">Topic
+              <select name="topic">
+                <option value="research">Research collaboration</option>
+                <option value="collaboration">Project or hackathon</option>
+                <option value="speaking">Teaching or speaking</option>
+                <option value="hiring">Hiring or internships</option>
+                <option value="other">Something else</option>
+              </select>
+              <span class="err" data-err="topic"></span>
+            </label>
+            <label class="full">Message
+              <textarea name="message" required minlength="10" maxlength="3000"></textarea>
+              <span class="err" data-err="message"></span>
+            </label>
+            <div class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="full"><button class="btn go" type="submit">Send message</button></div>
+            <p class="status" id="status" role="status" hidden></p>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <div class="desk-foot">
+      <p><span class="blink">★ Best viewed in Netscape Navigator at 800×600 ★</span></p>
+      <p>Every ad on this page is a real way to reach Oscar.</p>
+    </div>
+  </div>
+</div>
+
+<aside class="win popup" id="popup" hidden aria-labelledby="pop-h">
+  <div class="win-title"><span>🎉 You're a winner!</span><button class="xbtn" id="pop-close" type="button" aria-label="Close popup">×</button></div>
+  <div class="win-body">
+    <h2 id="pop-h">Free 30-min call!</h2>
+    <p>No credit card. No catch. Just Oscar.</p>
+    <a class="btn go" data-ad="popup" data-cta="calendly" href="#contact">Claim it</a>
+  </div>
+</aside>
+
+<!-- ================= CLEAN (default) ================= -->
+<div class="clean-about prose">
+  <div class="ads-cta">
+    <button class="ads-on" type="button" data-mode="cooked">Turn on ads</button>
+  </div>
+  <h1>About Oscar</h1>
+  <p>Hi, I'm Oscar. I study physics, with minors in math and statistics, at the University of Toronto. My research is in AI safety: I use interpretability tools like probes, steering and sparse autoencoders to study how language models represent concepts such as truth and sycophancy, and I look at how networks generalize through their Jacobians.</p>
+  <p>I also teach AI safety at TARA and the Toronto AI Safety Initiative. If you'd like to talk, <a data-ad="clean-cal" data-cta="calendly" href="https://cal.com/oscar-yasunaga-hf4gs4/coffee-chats">book a coffee chat</a>.</p>
+  <h2>Blog</h2>
+  {{posts}}
+</div>
+
+</div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const form = $("#contact-form");
+  const popup = $("#popup");
+  let cfg = { calendlyUrl: "", contactEmail: "" };
+
+  // ---- cooked / clean mode ----
+  const params = new URLSearchParams(location.search);
+  let mode = params.get("mode");
+  if (mode !== "clean" && mode !== "cooked") {
+    try { mode = localStorage.getItem("aboutMode"); } catch {}
+  }
+  let popupTimer;
+  const setMode = (m) => {
+    document.body.classList.toggle("clean", m === "clean");
+    try { localStorage.setItem("aboutMode", m); } catch {}
+    clearTimeout(popupTimer);
+    if (m === "clean") { popup.hidden = true; return; }
+    let seen = false;
+    try { seen = sessionStorage.getItem("popup") === "1"; } catch {}
+    if (!seen) popupTimer = setTimeout(() => { popup.hidden = false; }, 8000);
+  };
+  setMode(mode === "cooked" ? "cooked" : "clean");
+  // ---- closable windows: × hides a window until reload or the next mode switch ----
+  const restoreWindows = () => $$(".desk .win").forEach((w) => { w.hidden = false; w.classList.remove("closing"); });
+  $$(".desk .win-close").forEach((x) => x.addEventListener("click", () => {
+    const win = x.closest(".win");
+    const done = () => { win.hidden = true; win.classList.remove("closing"); $(".ads-off").focus(); };
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return done();
+    win.classList.add("closing");
+    win.addEventListener("animationend", done, { once: true });
+  }));
+
+  // ---- "You've got mail" on Turn on ads ----
+  const muteBtn = $("#ads-mute");
+  let muted = false;
+  try { muted = localStorage.getItem("adsMuted") === "1"; } catch {}
+  const paintMute = () => {
+    muteBtn.textContent = muted ? "🔇" : "🔊";
+    muteBtn.setAttribute("aria-pressed", String(muted));
+    muteBtn.setAttribute("aria-label", muted ? "Unmute sound" : "Mute sound");
+  };
+  paintMute();
+  muteBtn.addEventListener("click", () => {
+    muted = !muted;
+    try { localStorage.setItem("adsMuted", muted ? "1" : "0"); } catch {}
+    paintMute();
+    if (muted) { clearTimeout(speakTimer); if ("speechSynthesis" in window) speechSynthesis.cancel(); }
+  });
+
+  let speakTimer;
+  function chimeAndSpeak() {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new Ctx();
+      const note = (freq, start, dur) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "triangle"; o.frequency.value = freq;
+        g.gain.setValueAtTime(0.0001, ctx.currentTime + start);
+        g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + start + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + start + dur);
+        o.connect(g).connect(ctx.destination);
+        o.start(ctx.currentTime + start); o.stop(ctx.currentTime + start + dur + 0.05);
+      };
+      note(659.25, 0, 0.18);   // E5
+      note(987.77, 0.16, 0.35); // B5
+      setTimeout(() => ctx.close(), 1000);
+    } catch {}
+    if ("speechSynthesis" in window) {
+      clearTimeout(speakTimer);
+      speakTimer = setTimeout(() => {
+        if (muted) return;
+        const u = new SpeechSynthesisUtterance("You've got mail!");
+        u.rate = 0.95; u.pitch = 1.05;
+        speechSynthesis.cancel(); speechSynthesis.speak(u);
+      }, 450);
+    }
+  }
+  // Uses public/sounds/mail.mp3 if you add one; otherwise the generated chime and voice.
+  function playMail() {
+    if (muted) return;
+    const a = new Audio("/sounds/mail.mp3");
+    a.play().catch(chimeAndSpeak);
+  }
+
+  $$("[data-mode]").forEach((b) => b.addEventListener("click", () => {
+    restoreWindows();
+    setMode(b.dataset.mode);
+    if (b.dataset.mode === "cooked") playMail();
+    scrollTo({ top: 0 });
+  }));
+
+  // ---- CTA wiring ----
+  function wireCtas() {
+    $$("[data-cta]").forEach((el) => {
+      const kind = el.dataset.cta;
+      if (kind === "calendly" && cfg.calendlyUrl) {
+        el.href = cfg.calendlyUrl; el.target = "_blank"; el.rel = "noopener";
+      } else if (kind === "email" && cfg.contactEmail) {
+        el.href = `mailto:${cfg.contactEmail}?subject=${encodeURIComponent("I'd like to learn more")}`;
+      }
+    });
+  }
+  cfg = { calendlyUrl: "{{calendlyUrl}}", contactEmail: "{{contactEmail}}" };
+  wireCtas();
+
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-ad]");
+    if (!el) return;
+    const href = el.getAttribute("href");
+    if (href === "#contact") {
+      e.preventDefault();
+      setMode("cooked");
+      if (el.dataset.topic) form.topic.value = el.dataset.topic;
+      form.dataset.sourceAd = el.dataset.ad;
+      popup.hidden = true;
+      $("#contact").scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => form.name.focus({ preventScroll: true }), 400);
+    }
+  });
+
+  // ---- visitor counter ----
+  const renderCount = (n) => {
+    const c = $("#counter");
+    c.innerHTML = String(n).padStart(6, "0").slice(-6).split("").map((d) => `<b>${d}</b>`).join("");
+    c.setAttribute("aria-label", `${n} visitors`);
+  };
+  // Fake counter: every visitor is number 999,999
+  renderCount(999999);
+
+  // ---- looping countdown ----
+  const clock = $("#clock");
+  let left = 599;
+  setInterval(() => {
+    left = left <= 0 ? 599 : left - 1;
+    clock.textContent = `${String(Math.floor(left / 60)).padStart(2, "0")}:${String(left % 60).padStart(2, "0")}`;
+  }, 1000);
+
+  // ---- popup: once per session, 8s after entering cooked mode ----
+  const closePopup = () => { popup.hidden = true; try { sessionStorage.setItem("popup", "1"); } catch {} };
+  $("#pop-close").addEventListener("click", closePopup);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !popup.hidden) closePopup(); });
+
+  // ---- contact form: opens the visitor's email app with the message filled in ----
+  const status = $("#status");
+  const showStatus = (msg) => { status.textContent = msg; status.hidden = false; };
+  const topicLabel = () => form.topic.options[form.topic.selectedIndex].text;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    $$("[data-err]", form).forEach((s) => (s.textContent = ""));
+    status.hidden = true;
+    if (form.website.value) return; // honeypot
+    const errs = {};
+    if (!form.name.value.trim()) errs.name = "Enter your name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.value.trim())) errs.email = "Enter a valid email address.";
+    if (form.message.value.trim().length < 10) errs.message = "Write at least 10 characters.";
+    if (Object.keys(errs).length) {
+      Object.entries(errs).forEach(([k, v]) => { const s = $(`[data-err="${k}"]`, form); if (s) s.textContent = v; });
+      showStatus("Fix the highlighted fields and send again.");
+      return;
+    }
+    const subject = `[yasunagaoscar.com] ${topicLabel()} from ${form.name.value.trim()}`;
+    const body = `${form.message.value.trim()}\n\n${form.name.value.trim()}\n${form.email.value.trim()}`;
+    location.href = `mailto:${cfg.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    showStatus(`Your email app should open with the message ready to send. If it doesn't, email ${cfg.contactEmail} directly.`);
+  });
+})();
+</script>

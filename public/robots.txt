@@ -1,0 +1,6 @@
+# All crawlers, including AI crawlers, are welcome on public pages.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://yasunagaoscar.com/sitemap.xml

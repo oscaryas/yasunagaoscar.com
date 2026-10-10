@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+<script>
+  (function () {
+    var t;
+    try { t = localStorage.getItem("theme"); } catch (e) {}
+    if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="{{bodyClass}}">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <nav class="nav-inner" aria-label="Main">
+    <a class="nav-name" href="/">Oscar Yasunaga</a>
+    <ul class="nav-links">{{navLinks}}</ul>
+    <button class="theme-btn" id="theme-btn" type="button"></button>
+  </nav>
+</header>
+<div class="shell">
+  {{sidebar}}
+  <main id="main" class="shell-main">
+{{content}}
+  </main>
+</div>
+<footer class="site-foot">
+  <p>© <span id="yr"></span> Oscar Yasunaga</p>
+  <p><a href="{{repoUrl}}">Source on GitHub</a>&emsp;<a href="/sitemap.xml">Sitemap</a></p>
+</footer>
+<script src="/assets/site.js"></script>
+</body>
+</html>

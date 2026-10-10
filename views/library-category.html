@@ -1,0 +1,19 @@
+<div class="page">
+  <p class="crumbs"><a href="/">Home</a> / <a href="/library/">Library</a> / {{name}}</p>
+  <div class="prose">
+    <h1>{{name}}</h1>
+    {{intro}}
+  </div>
+  {{grid}}
+</div>
+<script>
+(() => {
+  const btns = [...document.querySelectorAll(".filter")];
+  const cards = [...document.querySelectorAll(".cards .card")];
+  btns.forEach((b) => b.addEventListener("click", () => {
+    btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    const f = b.dataset.filter;
+    cards.forEach((c) => { c.hidden = Boolean(f) && c.dataset.status !== f; });
+  }));
+})();
+</script>

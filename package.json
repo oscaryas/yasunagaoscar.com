@@ -1,0 +1,27 @@
+{
+  "name": "yasunagaoscar-com",
+  "version": "1.0.0",
+  "description": "yasunagaoscar.com: academic personal site with a scam-ad About page, built as a static site for GitHub Pages",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "build": "node build.js",
+    "preview": "node build.js && npx --yes serve dist",
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "marked": "^14.1.2"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.3.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "nodemailer": "^6.9.15"
+  }
+}
