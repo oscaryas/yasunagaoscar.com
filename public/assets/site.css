@@ -260,16 +260,6 @@ a.card:hover { border-color: var(--accent); }
   .rs-media img { max-height: 186px; }
 }
 
-/* ---------- CV viewer ---------- */
-.cv-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
-.cv-head h1 { margin: 0; font-size: clamp(1.9rem, 3.5vw, 2.4rem); }
-.cv-download { font-size: 15px; }
-.cv-viewer {
-  display: block; width: 100%; height: calc(100vh - 190px); min-height: 520px;
-  border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
-}
-.cv-fallback { padding: 20px; }
-
 /* ---------- Library year groups ---------- */
 .lib-year { margin-bottom: 8px; }
 .lib-year .rs-year-h { margin-bottom: 14px; }

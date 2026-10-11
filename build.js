@@ -53,7 +53,7 @@ function write(urlPath, html) {
 }
 const page = (view, opts) => r.renderPage(view, { description: DESC, ...opts });
 
-// Fresh output folder, with public/ copied in (CSS, JS, photo, sounds, cv.pdf...)
+// Fresh output folder, with public/ copied in (CSS, JS, photo, sounds...)
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.cpSync(path.join(ROOT, "public"), OUT, { recursive: true });
 
@@ -68,7 +68,6 @@ write("/", page("about", {
 }));
 
 // Simple pages
-write("/cv/", page("cv", { title: "CV - Oscar Yasunaga", active: "cv" }));
 write("/research/", page("research", { title: "Research - Oscar Yasunaga", active: "research", vars: r.researchHtml() }));
 // Old address forwards to Research
 write("/publications/", page("redirect", { title: "Research - Oscar Yasunaga", active: "research", vars: { to: "/research/" } }).replace("<head>", '<head>\n<meta http-equiv="refresh" content="0; url=/research/">\n<link rel="canonical" href="/research/">'));

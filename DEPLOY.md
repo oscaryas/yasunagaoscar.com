@@ -48,7 +48,6 @@ Edit the files and push. The site rebuilds itself in about a minute.
 |---|---|
 | Sidebar name, photo, links | `content/profile.json`, `public/photo.jpg` |
 | Research | `content/research.json`, images in `public/research/` |
-| CV | `public/cv.pdf` |
 | Blog posts | Markdown files in `content/posts/` |
 | Library | `content/library.json` |
 | Teaching/Fieldbuilding, LLM Test | `views/teaching.html`, `views/llm-test.html` |
