@@ -8,12 +8,16 @@
 </div>
 <script>
 (() => {
+  const wrap = document.querySelector(".filters");
+  const key = (wrap && wrap.dataset.key) || "status";
   const btns = [...document.querySelectorAll(".filter")];
   const cards = [...document.querySelectorAll(".cards .card")];
+  const sections = [...document.querySelectorAll(".lib-year")];
   btns.forEach((b) => b.addEventListener("click", () => {
     btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     const f = b.dataset.filter;
-    cards.forEach((c) => { c.hidden = Boolean(f) && c.dataset.status !== f; });
+    cards.forEach((c) => { c.hidden = Boolean(f) && c.dataset[key] !== f; });
+    sections.forEach((s) => { s.hidden = Boolean(f) && s.dataset.read !== f; });
   }));
 })();
 </script>

@@ -183,24 +183,39 @@ function cardHtml(cat, it) {
     <span class="card-meta">${[it.year, it.status].filter(Boolean).map(esc).join("&ensp;")}</span>
     ${it.blurb ? `<span class="card-blurb">${esc(it.blurb)}</span>` : ""}
   </span>`;
-  const attrs = `data-status="${esc(it.status || "")}"`;
+  const attrs = `data-status="${esc(it.status || "")}" data-read="${esc(it.read || "")}"`;
   return it.hasNote
     ? `<a class="card has-note" href="/library/${cat.slug}/${it.slug}/" ${attrs}>${inner}<span class="card-note-flag">Notes</span></a>`
     : `<div class="card" ${attrs}>${inner}</div>`;
 }
 
 function libraryCategoryHtml(cat) {
-  const statuses = [...new Set(cat.items.map((i) => i.status).filter(Boolean))];
-  const filters = statuses.length > 1
-    ? `<div class="filters" role="group" aria-label="Filter by status">
+  const byYear = cat.items.some((i) => i.read);
+  const key = byYear ? "read" : "status";
+  const values = [...new Set(cat.items.map((i) => i[key]).filter(Boolean))];
+  if (byYear) values.sort((a, b) => String(b).localeCompare(String(a)));
+  const filters = values.length > 1
+    ? `<div class="filters" role="group" aria-label="Filter by ${byYear ? "year" : "status"}" data-key="${key}">
   <button type="button" class="filter" aria-pressed="true" data-filter="">All</button>
-  ${statuses.map((s) => `<button type="button" class="filter" aria-pressed="false" data-filter="${esc(s)}">${esc(s)}</button>`).join("")}
+  ${values.map((s) => `<button type="button" class="filter" aria-pressed="false" data-filter="${esc(s)}">${esc(s)}</button>`).join("")}
 </div>`
     : "";
-  const cards = cat.items.length
-    ? `<div class="cards">${cat.items.map((it) => cardHtml(cat, it)).join("")}</div>`
-    : `<p>Nothing here yet. Add entries to <code>content/library.json</code>.</p>`;
-  return filters + cards;
+  if (!cat.items.length) return `<p>Nothing here yet. Add entries to <code>content/library.json</code>.</p>`;
+  if (!byYear) return filters + `<div class="cards">${cat.items.map((it) => cardHtml(cat, it)).join("")}</div>`;
+  const groups = new Map();
+  for (const it of cat.items) {
+    const y = it.read || "Undated";
+    if (!groups.has(y)) groups.set(y, []);
+    groups.get(y).push(it);
+  }
+  const years = [...groups.keys()].sort((a, b) => String(b).localeCompare(String(a)));
+  const sections = years
+    .map((y) => `<section class="rs-year lib-year" data-read="${esc(y)}" aria-labelledby="y${esc(y)}">
+  <h2 id="y${esc(y)}" class="rs-year-h">${esc(y)}</h2>
+  <div class="cards">${groups.get(y).map((it) => cardHtml(cat, it)).join("")}</div>
+</section>`)
+    .join("\n");
+  return filters + sections;
 }
 
 // Blog posts rendered as cooked ad windows on the About page

@@ -5,73 +5,62 @@
       "slug": "books",
       "name": "Books",
       "icon": "📚",
-      "intro": "Books I've read, most recent first.",
+      "intro": "Books I've read, grouped by the year I read them.",
       "items": [
         {
           "title": "Empire of AI",
           "creator": "Karen Hao",
-          "year": "2025",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "dot.con",
           "creator": "John Cassidy",
-          "year": "2002",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "Indistractable",
           "creator": "Nir Eyal",
-          "year": "2019",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "Galápagos",
           "creator": "Kurt Vonnegut",
-          "year": "1985",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "Based on a True Story",
           "creator": "Norm Macdonald",
-          "year": "2016",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "If Anyone Builds It, Everyone Dies",
           "creator": "Eliezer Yudkowsky and Nate Soares",
-          "year": "2025",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "80,000 Hours Career Guide",
           "creator": "Benjamin Todd",
-          "year": "2016",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "Hillbilly Elegy",
           "creator": "J.D. Vance",
-          "year": "2016",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "Selling Social Justice",
           "creator": "Jennifer C. Pan",
-          "year": "2025",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "Abundance",
           "creator": "Ezra Klein and Derek Thompson",
-          "year": "2025",
-          "status": "Read in 2026"
+          "read": "2026"
         },
         {
           "title": "How Democracies Die",
           "creator": "Steven Levitsky and Daniel Ziblatt",
-          "year": "2018",
-          "status": "Read in 2026"
+          "read": "2026"
         }
       ]
     },
