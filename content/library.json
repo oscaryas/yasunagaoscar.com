@@ -3,7 +3,6 @@
   "categories": [
     {
       "slug": "books",
-      "layout": "list",
       "name": "Books",
       "icon": "📚",
       "intro": "Books I've read, grouped by the year I read them.",
@@ -11,79 +10,144 @@
         {
           "title": "Empire of AI",
           "creator": "Karen Hao",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/empire-of-ai.jpg"
         },
         {
           "title": "dot.con",
           "creator": "John Cassidy",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/dot-con.jpg"
         },
         {
           "title": "Indistractable",
           "creator": "Nir Eyal",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/indistractable.jpg"
         },
         {
           "title": "Galápagos",
           "creator": "Kurt Vonnegut",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/galapagos.jpg"
         },
         {
           "title": "Based on a True Story",
           "creator": "Norm Macdonald",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/based-on-a-true-story.jpg"
         },
         {
           "title": "If Anyone Builds It, Everyone Dies",
           "creator": "Eliezer Yudkowsky and Nate Soares",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/if-anyone-builds-it-everyone-dies.jpg"
         },
         {
           "title": "80,000 Hours Career Guide",
           "creator": "Benjamin Todd",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/80000-hours-career-guide.jpg"
         },
         {
           "title": "Hillbilly Elegy",
           "creator": "J.D. Vance",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/hillbilly-elegy.jpg"
         },
         {
           "title": "Selling Social Justice",
           "creator": "Jennifer C. Pan",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/selling-social-justice.jpg"
         },
         {
           "title": "Abundance",
           "creator": "Ezra Klein and Derek Thompson",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/abundance.jpg"
         },
         {
           "title": "How Democracies Die",
           "creator": "Steven Levitsky and Daniel Ziblatt",
-          "read": "2026"
+          "read": "2026",
+          "image": "/covers/how-democracies-die.jpg"
         }
-      ]
+      ],
+      "layout": "posters"
     },
     {
       "slug": "movies",
-      "layout": "list",
-      "name": "Movies",
+      "layout": "posters",
+      "name": "Entertainment",
       "icon": "🎬",
-      "intro": "PLACEHOLDER: replace these entries with your movies. Suggested statuses: Watched, Favourite.",
+      "intro": "Movies and shows. Favourites are marked.",
       "items": [
         {
-          "title": "Placeholder Movie One",
-          "creator": "Director Name",
-          "year": "2014",
+          "title": "Dirty Work",
+          "creator": "Bob Saget",
           "status": "Favourite",
-          "note": "Why this one stuck with you."
+          "image": "/posters/dirty-work.jpg"
         },
         {
-          "title": "Placeholder Movie Two",
-          "creator": "Director Name",
-          "year": "2023",
-          "status": "Watched"
+          "title": "One Battle After Another",
+          "creator": "Paul Thomas Anderson",
+          "status": "Favourite",
+          "image": "/posters/one-battle-after-another.jpg"
+        },
+        {
+          "title": "I Swear",
+          "creator": "Kirk Jones",
+          "status": "Favourite",
+          "image": "/posters/i-swear.jpg"
+        },
+        {
+          "title": "Lorne",
+          "creator": "Jason Reitman",
+          "status": "Favourite",
+          "image": "/posters/lorne.jpg"
+        },
+        {
+          "title": "Coyote vs. Acme",
+          "creator": "Dave Green",
+          "status": "Watched",
+          "image": "/posters/coyote-vs-acme.jpg"
+        },
+        {
+          "title": "Lanterns",
+          "creator": "HBO",
+          "status": "Watched",
+          "image": "/posters/lanterns.jpg"
+        },
+        {
+          "title": "Spider-Man: Brand New Day",
+          "creator": "Destin Daniel Cretton",
+          "status": "Watched",
+          "image": "/posters/spider-man-brand-new-day.jpg"
+        },
+        {
+          "title": "The Odyssey",
+          "creator": "Christopher Nolan",
+          "status": "Watched",
+          "image": "/posters/the-odyssey.jpg"
+        },
+        {
+          "title": "Sinners",
+          "creator": "Ryan Coogler",
+          "status": "Watched",
+          "image": "/posters/sinners.jpg"
+        },
+        {
+          "title": "Weapons",
+          "creator": "Zach Cregger",
+          "status": "Watched",
+          "image": "/posters/weapons.jpg"
+        },
+        {
+          "title": "Look Back",
+          "creator": "Kiyotaka Oshiyama",
+          "status": "Watched",
+          "image": "/posters/look-back.jpg"
         }
       ]
     },

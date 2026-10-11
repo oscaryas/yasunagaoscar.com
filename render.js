@@ -199,10 +199,29 @@ function listItemHtml(cat, it) {
   return `<li class="lib-item" ${attrs}>${title}${meta ? `<span class="li-meta">${meta}</span>` : ""}${it.blurb ? `<span class="li-blurb">${esc(it.blurb)}</span>` : ""}</li>`;
 }
 
+function posterHtml(cat, it) {
+  const attrs = `data-status="${esc(it.status || "")}" data-read="${esc(it.read || "")}"`;
+  const art = it.image
+    ? `<span class="poster-art"><img src="${esc(it.image)}" alt="" loading="lazy"></span>`
+    : `<span class="poster-art poster-blank" style="--spine:${spineColour(it.title)}"><span>${esc(it.title)}</span></span>`;
+  const inner = `${art}
+  <span class="poster-body">
+    <span class="card-title">${esc(it.title)}</span>
+    ${it.creator ? `<span class="card-creator">${esc(it.creator)}</span>` : ""}
+    ${it.status ? `<span class="card-meta">${esc(it.status)}</span>` : ""}
+  </span>`;
+  return it.hasNote
+    ? `<a class="card poster has-note" href="/library/${cat.slug}/${it.slug}/" ${attrs}>${inner}<span class="card-note-flag">Notes</span></a>`
+    : `<div class="card poster" ${attrs}>${inner}</div>`;
+}
+
 function libraryCategoryHtml(cat) {
   const list = cat.layout === "list";
+  const posters = cat.layout === "posters";
   const group = (items) => list
     ? `<ul class="lib-list">${items.map((it) => listItemHtml(cat, it)).join("")}</ul>`
+    : posters
+    ? `<div class="cards posters">${items.map((it) => posterHtml(cat, it)).join("")}</div>`
     : `<div class="cards">${items.map((it) => cardHtml(cat, it)).join("")}</div>`;
   const byYear = cat.items.some((i) => i.read);
   const key = byYear ? "read" : "status";
