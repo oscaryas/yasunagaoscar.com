@@ -297,3 +297,8 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 .card.poster .card-title { font-size: 15px; }
 .card.poster .card-creator { font-size: 13.5px; color: var(--muted); }
 .card.poster .card-note-flag { position: static; margin-top: 2px; }
+
+/* ---------- Teaching year groups ---------- */
+.prose .rs-year-h { margin: 34px 0 0; font-size: 1.05rem; }
+.prose .rs-year:first-of-type .rs-year-h { margin-top: 8px; }
+.prose .rs-year .entry-title { margin-top: 22px; }
