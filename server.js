@@ -136,14 +136,14 @@ const page = (view, opts) => (req, res) => {
   }
 };
 
-// Trailing-slash redirects so /research and /research/ both work
+// Trailing-slash redirects so /cv and /cv/ both work
 app.use((req, res, next) => {
   if (req.method !== "GET") return next();
   // Old addresses: Fun and Blog pages became the Blog list on About; posts live at /posts/<slug>/
   const old = req.path.match(/^\/(?:fun|blog)(?:\/([a-z0-9-]+))?\/?$/);
   if (old) return res.redirect(301, old[1] ? `/posts/${old[1]}/` : "/");
-  // Add trailing slashes: /research -> /research/, /posts/x -> /posts/x/, /library/books/x -> /library/books/x/
-  if (/^\/(research|teaching|posts|library|llm-test)(\/[a-z0-9-]+){0,2}$/.test(req.path)) return res.redirect(301, req.path + "/");
+  // Add trailing slashes: /cv -> /cv/, /posts/x -> /posts/x/, /library/books/x -> /library/books/x/
+  if (/^\/(cv|research|teaching|posts|library|llm-test)(\/[a-z0-9-]+){0,2}$/.test(req.path)) return res.redirect(301, req.path + "/");
   next();
 });
 
@@ -152,6 +152,7 @@ app.get("/", page("about", {
   vars: () => { const posts = listPosts(); return { posts: postListHtml(posts), adPosts: adPostsHtml(posts), calendlyUrl: esc(CALENDLY_URL), contactEmail: esc(CONTACT_EMAIL) }; },
 }));
 app.get("/teaching/", page("teaching", { title: "Teaching/Fieldbuilding - Oscar Yasunaga", active: "teaching" }));
+app.get("/cv/", page("cv", { title: "CV - Oscar Yasunaga", active: "cv" }));
 app.get("/publications/", (req, res) => res.redirect(301, "/research/"));
 app.get("/research/", page("research", {
   title: "Research - Oscar Yasunaga", active: "research", vars: researchHtml,
@@ -216,7 +217,7 @@ app.get("/llm-test/", page("llm-test", { title: "LLM Test - Oscar Yasunaga", act
 
 app.get("/sitemap.xml", (req, res) => {
   const base = `${req.protocol}://${req.get("host")}`;
-  const urls = ["/", "/research/", "/teaching/", "/library/", "/llm-test/", ...listPosts().map((p) => `/posts/${p.slug}/`)];
+  const urls = ["/", "/cv/", "/research/", "/teaching/", "/library/", "/llm-test/", ...listPosts().map((p) => `/posts/${p.slug}/`)];
   try {
     for (const c of loadLibrary().categories) {
       urls.push(`/library/${c.slug}/`);

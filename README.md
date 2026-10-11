@@ -23,6 +23,7 @@ number starting at 999,999.
 | Path | What it is | Edit in |
 |---|---|---|
 | `/` | About. Clean by default with the Blog list below the bio; "Turn on ads" switches to cooked (also `/?mode=cooked`) | `views/about.html` |
+| `/cv/` | CV placeholder (in development) | `views/cv.html` |
 | `/research/` | Research cards grouped by year (`/publications/` forwards here) | `content/research.json`, images in `public/research/` |
 | `/teaching/` | Teaching/Fieldbuilding | `views/teaching.html` |
 | `/posts/<slug>/` | A blog post (listed on About) | `content/posts/<slug>.md` |
