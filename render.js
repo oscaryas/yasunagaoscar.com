@@ -297,7 +297,13 @@ function researchHtml() {
   ${y.items.map(card).join("\n")}
 </section>`)
     .join("\n");
-  return { research: html + (anyStar ? '\n<p class="pub-note">* Equal contribution</p>' : "") };
+  const reviewing = (data.reviewing || []).length
+    ? `<section class="rs-reviewing" aria-labelledby="reviewing-h">
+  <h2 id="reviewing-h" class="rs-year-h">Reviewer</h2>
+  <ul class="rs-venues">${data.reviewing.map((v) => `<li>${esc(v)}</li>`).join("")}</ul>
+</section>`
+    : "";
+  return { research: html + (anyStar ? '\n<p class="pub-note">* Equal contribution</p>' : "") + "\n" + reviewing };
 }
 
 module.exports = {

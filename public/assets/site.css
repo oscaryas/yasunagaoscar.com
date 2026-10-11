@@ -302,3 +302,8 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 .prose .rs-year-h { margin: 34px 0 0; font-size: 1.05rem; }
 .prose .rs-year:first-of-type .rs-year-h { margin-top: 8px; }
 .prose .rs-year .entry-title { margin-top: 22px; }
+
+/* ---------- Research: reviewing ---------- */
+.rs-venues { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.rs-venues li { padding-left: 14px; position: relative; }
+.rs-venues li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }

@@ -47,7 +47,7 @@ Edit the files and push. The site rebuilds itself in about a minute.
 | To change | Edit |
 |---|---|
 | Sidebar name, photo, links | `content/profile.json`, `public/photo.jpg` |
-| Research | `content/research.json`, images in `public/research/` |
+| Research and reviewing | `content/research.json`, images in `public/research/` |
 | CV | `views/cv.html` |
 | Blog posts | Markdown files in `content/posts/` |
 | Library | `content/library.json` |
