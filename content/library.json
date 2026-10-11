@@ -1,5 +1,5 @@
 {
-  "intro": "Things I've read, watched, played, and laughed at.",
+  "intro": "Things I've read, watched, and played.",
   "categories": [
     {
       "slug": "books",
@@ -110,43 +110,36 @@
         {
           "title": "Coyote vs. Acme",
           "creator": "Dave Green",
-          "status": "Watched",
           "image": "/posters/coyote-vs-acme.jpg"
         },
         {
           "title": "Lanterns",
           "creator": "HBO",
-          "status": "Watched",
           "image": "/posters/lanterns.jpg"
         },
         {
           "title": "Spider-Man: Brand New Day",
           "creator": "Destin Daniel Cretton",
-          "status": "Watched",
           "image": "/posters/spider-man-brand-new-day.jpg"
         },
         {
           "title": "The Odyssey",
           "creator": "Christopher Nolan",
-          "status": "Watched",
           "image": "/posters/the-odyssey.jpg"
         },
         {
           "title": "Sinners",
           "creator": "Ryan Coogler",
-          "status": "Watched",
           "image": "/posters/sinners.jpg"
         },
         {
           "title": "Weapons",
           "creator": "Zach Cregger",
-          "status": "Watched",
           "image": "/posters/weapons.jpg"
         },
         {
           "title": "Look Back",
           "creator": "Kiyotaka Oshiyama",
-          "status": "Watched",
           "image": "/posters/look-back.jpg"
         }
       ]
@@ -168,24 +161,6 @@
           "creator": "Studio Name",
           "year": "2025",
           "status": "Playing"
-        }
-      ]
-    },
-    {
-      "slug": "comedians",
-      "name": "Jokes",
-      "icon": "🎤",
-      "intro": "PLACEHOLDER: replace these entries with your comedians. Suggested statuses: Seen live, Favourite. Put a favourite special in the blurb.",
-      "items": [
-        {
-          "title": "Placeholder Comedian One",
-          "status": "Seen live",
-          "blurb": "Favourite special: Placeholder Special",
-          "note": "What you learned about timing, crowd work, or writing from watching them."
-        },
-        {
-          "title": "Placeholder Comedian Two",
-          "status": "Favourite"
         }
       ]
     }
