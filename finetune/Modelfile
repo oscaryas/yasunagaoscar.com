@@ -1,6 +1,0 @@
-# Ollama model definition for the exported GGUF.
-# Build:  ollama create oscarbot -f Modelfile
-# Then set LLM_MODEL=oscarbot in .env
-FROM ./out/oscar-voice-gguf/unsloth.Q4_K_M.gguf
-PARAMETER temperature 0.3
-PARAMETER num_ctx 4096

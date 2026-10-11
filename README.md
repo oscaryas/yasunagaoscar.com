@@ -17,8 +17,7 @@ Claim Form.exe opens the visitor's email app with their message filled in. The v
 number starting at 999,999.
 
 ## Optional server (not used for GitHub Pages)
-`server.js` is the earlier Express version with a real form backend, visitor counter, click tracking and the
-OscarBot chat (`knowledge/`, `finetune/`). It is kept for later and is not part of the static build.
+`server.js` is the earlier Express version with a real form backend, visitor counter and click tracking. It is kept for later and is not part of the static build.
 
 ## Pages
 | Path | What it is | Edit in |
@@ -31,7 +30,7 @@ OscarBot chat (`knowledge/`, `finetune/`). It is kept for later and is not part 
 | `/library/` | Library tiles: Books, Movies, Comedians, Video Games | `content/library.json` |
 | `/library/<category>/` | Card grid with status filters | `content/library.json` |
 | `/library/<category>/<item>/` | Notes page (only for items with a `note`) | `content/library.json` |
-| `/llm-test/` | Crawler test, Realistic SEO (lorem ipsum), and the OscarBot chat | `views/llm-test.html` |
+| `/llm-test/` | Crawler test and Realistic SEO (lorem ipsum) | `views/llm-test.html` |
 
 All pages share `views/layout.html` (nav, theme toggle, profile sidebar, footer) and `public/assets/site.css`.
 
@@ -66,11 +65,10 @@ Markdown body here.
 
 ## Running the optional server
 ```bash
-cp .env.example .env     # fill in CALENDLY_URL, CONTACT_EMAIL, SMTP_*, LLM_*
+cp .env.example .env     # fill in CALENDLY_URL, CONTACT_EMAIL, SMTP_*
 npm install
 npm start                # http://localhost:3000
 ```
-For the chat, install Ollama and run `ollama pull qwen2.5:3b-instruct` first. See `finetune/README.md`.
 
 ## Structure
 ```
@@ -81,7 +79,6 @@ views/           Page templates
 public/          Static files copied as-is (CSS, JS, photo, sounds/, cv.pdf)
 .github/         GitHub Pages deploy workflow
 server.js        Optional Express server (not used on GitHub Pages)
-retrieval.js, knowledge/, finetune/   OscarBot, for later
 ```
 
 ## Server API (optional server only)
@@ -93,14 +90,12 @@ retrieval.js, knowledge/, finetune/   OscarBot, for later
 | POST | `/api/click` | Logs which ad was clicked |
 | GET  | `/api/posts`, `/api/posts/:slug` | Blog posts as JSON |
 | GET  | `/api/library` | Library entries as JSON |
-| POST | `/api/chat` | `{messages:[{role, content}]}` and streams the answer as server-sent events |
 | GET  | `/sitemap.xml` | Generated from pages and posts |
 
 ## Reading your data (optional server only)
 ```bash
 sqlite3 data/site.db "SELECT created_at, name, email, topic, source_ad FROM inquiries ORDER BY id DESC;"
 sqlite3 data/site.db "SELECT ad_id, COUNT(*) FROM ad_clicks GROUP BY ad_id ORDER BY 2 DESC;"
-sqlite3 data/site.db "SELECT created_at, question, answer FROM chat_log ORDER BY id DESC LIMIT 20;"
 ```
 
 ## Crawler test
