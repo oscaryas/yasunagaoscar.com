@@ -151,7 +151,7 @@ app.get("/", page("about", {
   title: "Oscar Yasunaga", active: "about", bodyClass: "clean",
   vars: () => { const posts = listPosts(); return { posts: postListHtml(posts), adPosts: adPostsHtml(posts), calendlyUrl: esc(CALENDLY_URL), contactEmail: esc(CONTACT_EMAIL) }; },
 }));
-app.get("/teaching/", page("teaching", { title: "Teaching + Fieldbuilding - Oscar Yasunaga", active: "teaching" }));
+app.get("/teaching/", page("teaching", { title: "Teaching/Fieldbuilding - Oscar Yasunaga", active: "teaching" }));
 app.get("/cv/", page("cv", { title: "CV - Oscar Yasunaga", active: "cv" }));
 app.get("/publications/", (req, res) => res.redirect(301, "/research/"));
 app.get("/research/", page("research", {

@@ -204,7 +204,7 @@ a.card:hover { border-color: var(--accent); }
   color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em;
 }
 
-/* ---------- Teaching + Fieldbuilding ---------- */
+/* ---------- Teaching/Fieldbuilding ---------- */
 .prose .entry-title { font-size: 1.15rem; margin: 30px 0 4px; }
 .entry-link { font-size: 15px; margin-left: 6px; white-space: nowrap; }
 .pub-note { font-size: 14px; color: var(--muted); margin-top: -6px; }

@@ -25,7 +25,7 @@ number starting at 999,999.
 | `/` | About. Clean by default with the Blog list below the bio; "Turn on ads" switches to cooked (also `/?mode=cooked`) | `views/about.html` |
 | `/cv/` | CV, including teaching, service, awards | `views/cv.html` (put a PDF at `public/cv.pdf`) |
 | `/research/` | Research cards grouped by year (`/publications/` forwards here) | `content/research.json`, images in `public/research/` |
-| `/teaching/` | Teaching + Fieldbuilding | `views/teaching.html` |
+| `/teaching/` | Teaching/Fieldbuilding | `views/teaching.html` |
 | `/posts/<slug>/` | A blog post (listed on About) | `content/posts/<slug>.md` |
 | `/library/` | One page with Books, Movies, Games, Jokes tabs | `content/library.json` |
 | `/library/<category>/` | Card grid with status filters | `content/library.json` |

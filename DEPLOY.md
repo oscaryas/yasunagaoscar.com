@@ -51,7 +51,7 @@ Edit the files and push. The site rebuilds itself in about a minute.
 | CV | `public/cv.pdf` |
 | Blog posts | Markdown files in `content/posts/` |
 | Library | `content/library.json` |
-| Teaching + Fieldbuilding, LLM Test | `views/teaching.html`, `views/llm-test.html` |
+| Teaching/Fieldbuilding, LLM Test | `views/teaching.html`, `views/llm-test.html` |
 | Domain, booking link, email, repo link | `content/site.json` |
 
 To preview locally: `npm run build`, then open the `dist/` folder with any static server
