@@ -5,18 +5,74 @@
       "slug": "books",
       "name": "Books",
       "icon": "📚",
-      "intro": "PLACEHOLDER: replace these entries with your books. Suggested statuses: Finished, In progress, Started, Favourite.",
+      "intro": "Books I've read, most recent first.",
       "items": [
         {
-          "title": "Placeholder Book One",
-          "creator": "Author Name",
-          "year": "2020",
-          "status": "Finished",
-          "blurb": "One-line summary shown on the card.",
-          "note": "Your notes in **Markdown**: what you thought, favourite quotes, how it changed your mind.\n\n- Lists work\n- So do [links](https://example.com)"
+          "title": "Empire of AI",
+          "creator": "Karen Hao",
+          "year": "2025",
+          "status": "Read in 2026"
         },
-        { "title": "Placeholder Book Two", "creator": "Author Name", "year": "2018", "status": "In progress" },
-        { "title": "Placeholder Book Three", "creator": "Author Name", "year": "1999", "status": "Favourite" }
+        {
+          "title": "dot.con",
+          "creator": "John Cassidy",
+          "year": "2002",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "Indistractable",
+          "creator": "Nir Eyal",
+          "year": "2019",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "Galápagos",
+          "creator": "Kurt Vonnegut",
+          "year": "1985",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "Based on a True Story",
+          "creator": "Norm Macdonald",
+          "year": "2016",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "If Anyone Builds It, Everyone Dies",
+          "creator": "Eliezer Yudkowsky and Nate Soares",
+          "year": "2025",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "80,000 Hours Career Guide",
+          "creator": "Benjamin Todd",
+          "year": "2016",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "Hillbilly Elegy",
+          "creator": "J.D. Vance",
+          "year": "2016",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "Selling Social Justice",
+          "creator": "Jennifer C. Pan",
+          "year": "2025",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "Abundance",
+          "creator": "Ezra Klein and Derek Thompson",
+          "year": "2025",
+          "status": "Read in 2026"
+        },
+        {
+          "title": "How Democracies Die",
+          "creator": "Steven Levitsky and Daniel Ziblatt",
+          "year": "2018",
+          "status": "Read in 2026"
+        }
       ]
     },
     {
@@ -25,8 +81,19 @@
       "icon": "🎬",
       "intro": "PLACEHOLDER: replace these entries with your movies. Suggested statuses: Watched, Favourite.",
       "items": [
-        { "title": "Placeholder Movie One", "creator": "Director Name", "year": "2014", "status": "Favourite", "note": "Why this one stuck with you." },
-        { "title": "Placeholder Movie Two", "creator": "Director Name", "year": "2023", "status": "Watched" }
+        {
+          "title": "Placeholder Movie One",
+          "creator": "Director Name",
+          "year": "2014",
+          "status": "Favourite",
+          "note": "Why this one stuck with you."
+        },
+        {
+          "title": "Placeholder Movie Two",
+          "creator": "Director Name",
+          "year": "2023",
+          "status": "Watched"
+        }
       ]
     },
     {
@@ -35,8 +102,16 @@
       "icon": "🎤",
       "intro": "PLACEHOLDER: replace these entries with your comedians. Suggested statuses: Seen live, Favourite. Put a favourite special in the blurb.",
       "items": [
-        { "title": "Placeholder Comedian One", "status": "Seen live", "blurb": "Favourite special: Placeholder Special", "note": "What you learned about timing, crowd work, or writing from watching them." },
-        { "title": "Placeholder Comedian Two", "status": "Favourite" }
+        {
+          "title": "Placeholder Comedian One",
+          "status": "Seen live",
+          "blurb": "Favourite special: Placeholder Special",
+          "note": "What you learned about timing, crowd work, or writing from watching them."
+        },
+        {
+          "title": "Placeholder Comedian Two",
+          "status": "Favourite"
+        }
       ]
     },
     {
@@ -45,8 +120,18 @@
       "icon": "🎮",
       "intro": "PLACEHOLDER: replace these entries with your games. Suggested statuses: Played, Playing, Favourite.",
       "items": [
-        { "title": "Placeholder Game One", "creator": "Studio Name", "year": "2017", "status": "Favourite" },
-        { "title": "Placeholder Game Two", "creator": "Studio Name", "year": "2025", "status": "Playing" }
+        {
+          "title": "Placeholder Game One",
+          "creator": "Studio Name",
+          "year": "2017",
+          "status": "Favourite"
+        },
+        {
+          "title": "Placeholder Game Two",
+          "creator": "Studio Name",
+          "year": "2025",
+          "status": "Playing"
+        }
       ]
     }
   ]
