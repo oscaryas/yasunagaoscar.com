@@ -1,8 +1,9 @@
 {
-  "intro": "Things I've read, watched, laughed at, and played. Entries with notes open to their own page.",
+  "intro": "Things I've read, watched, and laughed at. Entries with notes open to their own page.",
   "categories": [
     {
       "slug": "books",
+      "layout": "list",
       "name": "Books",
       "icon": "📚",
       "intro": "Books I've read, grouped by the year I read them.",
@@ -66,6 +67,7 @@
     },
     {
       "slug": "movies",
+      "layout": "list",
       "name": "Movies",
       "icon": "🎬",
       "intro": "PLACEHOLDER: replace these entries with your movies. Suggested statuses: Watched, Favourite.",
@@ -100,26 +102,6 @@
         {
           "title": "Placeholder Comedian Two",
           "status": "Favourite"
-        }
-      ]
-    },
-    {
-      "slug": "games",
-      "name": "Video Games",
-      "icon": "🎮",
-      "intro": "PLACEHOLDER: replace these entries with your games. Suggested statuses: Played, Playing, Favourite.",
-      "items": [
-        {
-          "title": "Placeholder Game One",
-          "creator": "Studio Name",
-          "year": "2017",
-          "status": "Favourite"
-        },
-        {
-          "title": "Placeholder Game Two",
-          "creator": "Studio Name",
-          "year": "2025",
-          "status": "Playing"
         }
       ]
     }

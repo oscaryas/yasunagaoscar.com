@@ -274,3 +274,14 @@ a.card:hover { border-color: var(--accent); }
 .lib-year { margin-bottom: 8px; }
 .lib-year .rs-year-h { margin-bottom: 14px; }
 .lib-year[hidden] { display: none; }
+
+/* ---------- Library list layout ---------- */
+.lib-list { list-style: none; margin: 0 0 8px; padding: 0; }
+.lib-item { padding: 9px 0; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.lib-item:last-child { border-bottom: 0; }
+.lib-item[hidden] { display: none; }
+.li-title { font-weight: 600; }
+a.li-title { color: var(--fg); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+a.li-title:hover { text-decoration-color: var(--accent); }
+.li-meta { font: 14px var(--sans); color: var(--muted); }
+.li-blurb { flex-basis: 100%; font-size: 14px; color: var(--muted); }

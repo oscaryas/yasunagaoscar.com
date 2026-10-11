@@ -11,7 +11,7 @@
   const wrap = document.querySelector(".filters");
   const key = (wrap && wrap.dataset.key) || "status";
   const btns = [...document.querySelectorAll(".filter")];
-  const cards = [...document.querySelectorAll(".cards .card")];
+  const cards = [...document.querySelectorAll(".cards .card, .lib-item")];
   const sections = [...document.querySelectorAll(".lib-year")];
   btns.forEach((b) => b.addEventListener("click", () => {
     btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));

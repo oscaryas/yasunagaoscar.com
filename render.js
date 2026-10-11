@@ -189,7 +189,20 @@ function cardHtml(cat, it) {
     : `<div class="card" ${attrs}>${inner}</div>`;
 }
 
+function listItemHtml(cat, it) {
+  const attrs = `data-status="${esc(it.status || "")}" data-read="${esc(it.read || "")}"`;
+  const title = it.hasNote
+    ? `<a class="li-title" href="/library/${cat.slug}/${it.slug}/">${esc(it.title)}</a>`
+    : `<span class="li-title">${esc(it.title)}</span>`;
+  const meta = [it.creator, it.status].filter(Boolean).map(esc).join(" · ");
+  return `<li class="lib-item" ${attrs}>${title}${meta ? `<span class="li-meta">${meta}</span>` : ""}${it.blurb ? `<span class="li-blurb">${esc(it.blurb)}</span>` : ""}</li>`;
+}
+
 function libraryCategoryHtml(cat) {
+  const list = cat.layout === "list";
+  const group = (items) => list
+    ? `<ul class="lib-list">${items.map((it) => listItemHtml(cat, it)).join("")}</ul>`
+    : `<div class="cards">${items.map((it) => cardHtml(cat, it)).join("")}</div>`;
   const byYear = cat.items.some((i) => i.read);
   const key = byYear ? "read" : "status";
   const values = [...new Set(cat.items.map((i) => i[key]).filter(Boolean))];
@@ -201,7 +214,7 @@ function libraryCategoryHtml(cat) {
 </div>`
     : "";
   if (!cat.items.length) return `<p>Nothing here yet. Add entries to <code>content/library.json</code>.</p>`;
-  if (!byYear) return filters + `<div class="cards">${cat.items.map((it) => cardHtml(cat, it)).join("")}</div>`;
+  if (!byYear) return filters + group(cat.items);
   const groups = new Map();
   for (const it of cat.items) {
     const y = it.read || "Undated";
@@ -212,7 +225,7 @@ function libraryCategoryHtml(cat) {
   const sections = years
     .map((y) => `<section class="rs-year lib-year" data-read="${esc(y)}" aria-labelledby="y${esc(y)}">
   <h2 id="y${esc(y)}" class="rs-year-h">${esc(y)}</h2>
-  <div class="cards">${groups.get(y).map((it) => cardHtml(cat, it)).join("")}</div>
+  ${group(groups.get(y))}
 </section>`)
     .join("\n");
   return filters + sections;
