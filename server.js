@@ -9,7 +9,7 @@ const Database = require("better-sqlite3");
 const nodemailer = require("nodemailer");
 const { marked } = require("marked");
 const {
-  renderPage, publicationsHtml, listPosts, getPost, postListHtml, adPostsHtml, esc,
+  renderPage, researchHtml, listPosts, getPost, postListHtml, adPostsHtml, esc,
   loadLibrary, getCategory, libraryIndexHtml, libraryCategoryHtml,
 } = require("./render");
 
@@ -143,7 +143,7 @@ app.use((req, res, next) => {
   const old = req.path.match(/^\/(?:fun|blog)(?:\/([a-z0-9-]+))?\/?$/);
   if (old) return res.redirect(301, old[1] ? `/posts/${old[1]}/` : "/");
   // Add trailing slashes: /cv -> /cv/, /posts/x -> /posts/x/, /library/books/x -> /library/books/x/
-  if (/^\/(cv|publications|teaching|posts|library|llm-test)(\/[a-z0-9-]+){0,2}$/.test(req.path)) return res.redirect(301, req.path + "/");
+  if (/^\/(cv|research|teaching|posts|library|llm-test)(\/[a-z0-9-]+){0,2}$/.test(req.path)) return res.redirect(301, req.path + "/");
   next();
 });
 
@@ -153,8 +153,9 @@ app.get("/", page("about", {
 }));
 app.get("/teaching/", page("teaching", { title: "Teaching + Fieldbuilding - Oscar Yasunaga", active: "teaching" }));
 app.get("/cv/", page("cv", { title: "CV - Oscar Yasunaga", active: "cv" }));
-app.get("/publications/", page("publications", {
-  title: "Publications - Oscar Yasunaga", active: "publications", vars: publicationsHtml,
+app.get("/publications/", (req, res) => res.redirect(301, "/research/"));
+app.get("/research/", page("research", {
+  title: "Research - Oscar Yasunaga", active: "research", vars: researchHtml,
 }));
 app.get("/posts/:slug/", (req, res, next) => {
   const p = getPost(req.params.slug);
@@ -216,7 +217,7 @@ app.get("/llm-test/", page("llm-test", { title: "LLM Test - Oscar Yasunaga", act
 
 app.get("/sitemap.xml", (req, res) => {
   const base = `${req.protocol}://${req.get("host")}`;
-  const urls = ["/", "/cv/", "/publications/", "/teaching/", "/library/", "/llm-test/", ...listPosts().map((p) => `/posts/${p.slug}/`)];
+  const urls = ["/", "/cv/", "/research/", "/teaching/", "/library/", "/llm-test/", ...listPosts().map((p) => `/posts/${p.slug}/`)];
   try {
     for (const c of loadLibrary().categories) {
       urls.push(`/library/${c.slug}/`);

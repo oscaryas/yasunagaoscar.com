@@ -8,7 +8,7 @@ const CONTENT = path.join(__dirname, "content");
 const NAV = [
   { href: "/", label: "About", key: "about" },
   { href: "/cv/", label: "CV", key: "cv" },
-  { href: "/publications/", label: "Publications", key: "publications" },
+  { href: "/research/", label: "Research", key: "research" },
   { href: "/teaching/", label: "Teaching + Fieldbuilding", key: "teaching" },
   { href: "/library/", label: "Library", key: "library" },
   { href: "/llm-test/", label: "LLM Test", key: "llm-test" },
@@ -77,35 +77,6 @@ const ME = "Oscar Yasunaga";
 function renderAuthors(list) {
   return list.map((a) => (a.replace(/\*$/, "") === ME ? `<b>${esc(a)}</b>` : esc(a))).join(", ");
 }
-function publicationsHtml() {
-  const data = JSON.parse(fs.readFileSync(path.join(CONTENT, "publications.json"), "utf8"));
-  let pubs = data.papers
-    .map((p) => {
-      const links = Object.entries(p.links || {})
-        .map(([k, v]) => `<a href="${esc(v)}">${esc(k)}</a>`)
-        .join("");
-      return `<article class="pub${p.status === "accepted" ? " accepted" : ""}">
-  <div class="pub-title">${esc(p.title)}</div>
-  <div class="pub-authors">${renderAuthors(p.authors)}</div>
-  <div class="pub-venue">${esc(p.venue)}</div>
-  ${links ? `<div class="pub-links">${links}</div>` : ""}
-</article>`;
-    })
-    .join("\n");
-  if (data.papers.some((p) => p.authors.some((a) => a.endsWith("*")))) pubs += '\n<p class="pub-note">* Equal contribution</p>';
-  const projects = data.projects
-    .map(
-      (p) => `<div class="entry">
-  <div class="entry-head"><strong>${esc(p.title)}</strong><span class="entry-when">${esc(p.when)}</span></div>
-  <p class="meta">${esc(p.with)}</p>
-  <p>${esc(p.summary)}</p>
-  ${p.link ? `<p class="meta"><a href="${esc(p.link)}">${esc(p.linkLabel || "Code")}</a></p>` : ""}
-</div>`
-    )
-    .join("\n");
-  return { pubs, projects };
-}
-
 // ---------- Blog posts (Markdown with simple frontmatter) ----------
 const POSTS = path.join(CONTENT, "posts");
 const SLUG = /^[a-z0-9-]{1,80}$/;
@@ -246,8 +217,44 @@ function adPostsHtml(posts) {
     .join("\n");
 }
 
+// ---------- Research (content/research.json) ----------
+function researchHtml() {
+  const data = JSON.parse(fs.readFileSync(path.join(CONTENT, "research.json"), "utf8"));
+  let anyStar = false;
+  const card = (p) => {
+    if ((p.authors || []).some((a) => a.endsWith("*"))) anyStar = true;
+    const authors = p.authors && p.authors.length ? `<p class="rs-authors">${renderAuthors(p.authors)}</p>` : "";
+    const pills = (p.pills || [])
+      .map((x) => `<span class="pill pill-${esc(x.tone || "muted")}">${esc(x.label)}</span>`)
+      .join("");
+    const links = Object.entries(p.links || {})
+      .map(([k, v]) => `<a href="${esc(v)}">${esc(k)}</a>`)
+      .join('<span aria-hidden="true"> / </span>');
+    const media = p.image
+      ? `<div class="rs-media"><img src="${esc(p.image)}" alt="${esc(p.imageAlt || "")}" loading="lazy"></div>`
+      : "";
+    return `<article class="rs-card${p.image ? "" : " no-media"}">
+  ${media}
+  <div class="rs-body">
+    <h3 class="rs-title">${esc(p.title)}</h3>
+    ${authors}
+    ${pills ? `<div class="rs-pills">${pills}</div>` : ""}
+    ${links ? `<p class="rs-links">${links}</p>` : ""}
+  </div>
+</article>`;
+  };
+  const html = data.years
+    .map((y) => `<section class="rs-year" aria-labelledby="y${esc(y.year)}">
+  <h2 id="y${esc(y.year)}" class="rs-year-h">${esc(y.year)}</h2>
+  ${y.items.map(card).join("\n")}
+</section>`)
+    .join("\n");
+  return { research: html + (anyStar ? '\n<p class="pub-note">* Equal contribution</p>' : "") };
+}
+
 module.exports = {
+  researchHtml,
   adPostsHtml, sidebarHtml, siteConfig,
-  renderPage, publicationsHtml, listPosts, getPost, postListHtml, esc, NAV,
+  renderPage, listPosts, getPost, postListHtml, esc, NAV,
   loadLibrary, getCategory, libraryIndexHtml, libraryCategoryHtml,
 };

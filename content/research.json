@@ -1,0 +1,53 @@
+{
+  "years": [
+    {
+      "year": "2027",
+      "items": [
+        { "title": "SycoScope" },
+        {
+          "title": "RLViz: An Interactive Visualization to Aid Student Understanding of Bellman Equations",
+          "authors": ["Oscar Yasunaga", "Dylan Ma", "Chandra Gummaluru"],
+          "pills": [{ "label": "In preparation", "tone": "muted" }]
+        }
+      ]
+    },
+    {
+      "year": "2026",
+      "items": [
+        {
+          "title": "SuperSycophantic: Stress-Testing Frontier Models from Single- to Multi-Turn Sycophancy",
+          "authors": ["Terry Jingchen Zhang", "Oscar Yasunaga", "Wenyuan Jiang", "Jessica Bo", "Florent Draye", "Aydin Javadov", "Arth Singh", "Lucille Muir", "Victoria Oldemburgo De Mello", "Bernhard Schölkopf", "Zhijing Jin"],
+          "image": "/research/supersycophantic.jpg",
+          "imageAlt": "Taxonomy of single-turn and multi-turn sycophancy triggers",
+          "pills": [{ "label": "NeurIPS 2026", "tone": "rose" }]
+        },
+        {
+          "title": "GOES-ABI Data Cube: Eight Years of Unified Geostationary Satellite Observations",
+          "authors": ["Mickell Als*", "Misha Schwartz*", "Chen Yu-An", "Oscar Yasunaga", "Benjamin Lee", "Steve Easterbrook"],
+          "image": "/research/goes-abi.jpg",
+          "imageAlt": "Satellite disk observations regridded into a latitude, longitude and time data cube",
+          "pills": [{ "label": "Climate Informatics 2026", "tone": "gold" }]
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "items": [
+        {
+          "title": "From Directions to Cones: Exploring Multidimensional Representations of Propositional Facts",
+          "authors": ["Stanley Yu*", "Vaidehi Bulusu*", "Oscar Yasunaga", "Clayton Lau", "Cole Blondin", "Sean O'Brien", "Kevin Zhu", "Vasu Sharma"],
+          "image": "/research/directions-to-cones.jpg",
+          "imageAlt": "3D cone of activations spanned by two truth directions",
+          "pills": [{ "label": "ACL Student Research Workshop 2025", "tone": "violet" }]
+        },
+        {
+          "title": "Integrating ML & AI into Undergraduate Physics Curriculum",
+          "authors": ["Oscar Yasunaga", "Dennis Fernandes"],
+          "image": "/research/physics-curriculum.jpg",
+          "imageAlt": "Experiential Education Fair 2025 poster",
+          "pills": [{ "label": "Experiential Education Fair 2025", "tone": "teal" }]
+        }
+      ]
+    }
+  ]
+}

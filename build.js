@@ -69,7 +69,10 @@ write("/", page("about", {
 
 // Simple pages
 write("/cv/", page("cv", { title: "CV - Oscar Yasunaga", active: "cv" }));
-write("/publications/", page("publications", { title: "Publications - Oscar Yasunaga", active: "publications", vars: r.publicationsHtml() }));
+write("/research/", page("research", { title: "Research - Oscar Yasunaga", active: "research", vars: r.researchHtml() }));
+// Old address forwards to Research
+write("/publications/", page("redirect", { title: "Research - Oscar Yasunaga", active: "research", vars: { to: "/research/" } }).replace("<head>", '<head>\n<meta http-equiv="refresh" content="0; url=/research/">\n<link rel="canonical" href="/research/">'));
+urls.splice(urls.indexOf("/publications/"), 1);
 write("/teaching/", page("teaching", { title: "Teaching + Fieldbuilding - Oscar Yasunaga", active: "teaching" }));
 write("/llm-test/", page("llm-test", { title: "LLM Test - Oscar Yasunaga", active: "llm-test" }));
 

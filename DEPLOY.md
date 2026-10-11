@@ -47,10 +47,11 @@ Edit the files and push. The site rebuilds itself in about a minute.
 | To change | Edit |
 |---|---|
 | Sidebar name, photo, links | `content/profile.json`, `public/photo.jpg` |
-| Publications | `content/publications.json` |
+| Research | `content/research.json`, images in `public/research/` |
+| CV | `public/cv.pdf` |
 | Blog posts | Markdown files in `content/posts/` |
 | Library | `content/library.json` |
-| CV, Teaching + Fieldbuilding, LLM Test | `views/cv.html`, `views/teaching.html`, `views/llm-test.html` |
+| Teaching + Fieldbuilding, LLM Test | `views/teaching.html`, `views/llm-test.html` |
 | Domain, booking link, email, repo link | `content/site.json` |
 
 To preview locally: `npm run build`, then open the `dist/` folder with any static server

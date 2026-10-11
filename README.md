@@ -24,7 +24,7 @@ number starting at 999,999.
 |---|---|---|
 | `/` | About. Clean by default with the Blog list below the bio; "Turn on ads" switches to cooked (also `/?mode=cooked`) | `views/about.html` |
 | `/cv/` | CV, including teaching, service, awards | `views/cv.html` (put a PDF at `public/cv.pdf`) |
-| `/publications/` | Papers and current research | `content/publications.json` |
+| `/research/` | Research cards grouped by year (`/publications/` forwards here) | `content/research.json`, images in `public/research/` |
 | `/teaching/` | Teaching + Fieldbuilding | `views/teaching.html` |
 | `/posts/<slug>/` | A blog post (listed on About) | `content/posts/<slug>.md` |
 | `/library/` | Library tiles: Books, Movies, Comedians, Video Games | `content/library.json` |
@@ -74,7 +74,7 @@ npm start                # http://localhost:3000
 ```
 build.js         Builds the static site into dist/
 render.js        Page templating shared by the build and the optional server
-content/         site.json, profile.json, publications.json, library.json, posts/
+content/         site.json, profile.json, research.json, library.json, posts/
 views/           Page templates
 public/          Static files copied as-is (CSS, JS, photo, sounds/, cv.pdf)
 .github/         GitHub Pages deploy workflow
