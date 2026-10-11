@@ -1,15 +1,17 @@
 <style>
   /* Cooked mode styles, scoped to .desk so the rest of the site stays clean */
-  .desk {
+  .desk, .popup {
     --chrome: #c0c0c0; --chrome-hi: #fff; --chrome-lo: #808080; --chrome-dk: #000;
     --title: #000080; --title-2: #1084d0;
     --yellow: #ff0; --red: #f00; --lime: #0f0; --link: #0000ee; --ink: #000;
     color: var(--ink);
     font: 15px/1.45 Tahoma, Verdana, "Segoe UI", sans-serif;
+  }
+  .desk {
     background: repeating-conic-gradient(var(--desk-2) 0 25%, var(--desk) 0 50%) 0 0 / 8px 8px;
     min-height: 100vh;
   }
-  .desk a { color: var(--link); }
+  .desk a, .popup a { color: var(--link); }
   .desk :focus-visible { outline: 3px dashed var(--red); outline-offset: 2px; }
 
   .adbar {
