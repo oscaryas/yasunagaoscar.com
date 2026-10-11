@@ -311,10 +311,10 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 /* ---------- About: expandable bio ---------- */
 .bio-toggle {
   display: inline-block; vertical-align: baseline; cursor: pointer;
-  border: 0; background: transparent; padding: 0 6px; margin-left: 2px; border-radius: 6px;
-  font: inherit; font-size: 1.25em; line-height: 1; letter-spacing: 0.08em; color: var(--muted);
+  border: 0; background: transparent; padding: 0 4px 0 1px; margin: 0; border-radius: 6px;
+  font: inherit; line-height: 1; letter-spacing: 0.02em; color: inherit;
 }
-.bio-toggle[aria-expanded="true"] { font-size: 0.85em; letter-spacing: 0; color: var(--muted); text-decoration: underline; }
+.bio-toggle[aria-expanded="true"] { font-size: 0.85em; letter-spacing: 0; color: var(--muted); text-decoration: underline; margin-left: 4px; }
 .bio-toggle:hover { color: var(--fg); background: var(--surface); }
 .bio-full { margin-bottom: 18px; }
 .bio-full[hidden] { display: none; }
