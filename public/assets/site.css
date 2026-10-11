@@ -307,3 +307,16 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 .rs-venues { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
 .rs-venues li { padding-left: 14px; position: relative; }
 .rs-venues li::before { content: ""; position: absolute; left: 0; top: 0.65em; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+
+/* ---------- About: expandable bio ---------- */
+.bio-more { margin: -6px 0 18px; }
+.bio-more summary {
+  list-style: none; cursor: pointer; width: fit-content; user-select: none;
+  font-size: 1.4rem; line-height: 1; letter-spacing: 0.08em; color: var(--muted);
+  padding: 2px 6px; border-radius: 6px;
+}
+.bio-more summary::-webkit-details-marker { display: none; }
+.bio-more summary:hover { color: var(--fg); background: var(--surface); }
+.bio-more[open] summary { color: var(--fg); }
+.bio-more[open] summary::after { content: " less"; font-size: 13px; letter-spacing: 0; vertical-align: middle; }
+.bio-more > p { margin-top: 12px; }
