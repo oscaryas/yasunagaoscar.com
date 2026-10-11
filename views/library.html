@@ -5,3 +5,31 @@
   </div>
   {{tiles}}
 </div>
+<script>
+(() => {
+  const tabs = [...document.querySelectorAll(".cat-filters .filter")];
+  const panels = [...document.querySelectorAll(".cat-panel")];
+  const show = (slug) => {
+    tabs.forEach((t) => t.setAttribute("aria-selected", String(t.dataset.cat === slug)));
+    panels.forEach((p) => { p.hidden = p.dataset.cat !== slug; });
+  };
+  tabs.forEach((t) => t.addEventListener("click", () => { show(t.dataset.cat); history.replaceState(null, "", "#" + t.dataset.cat); }));
+  const h = location.hash.slice(1);
+  if (tabs.some((t) => t.dataset.cat === h)) show(h);
+  // Per-panel status/year filters
+  panels.forEach((panel) => {
+    const wrap = panel.querySelector(".filters:not(.cat-filters)");
+    if (!wrap) return;
+    const key = wrap.dataset.key || "status";
+    const btns = [...wrap.querySelectorAll(".filter")];
+    const items = [...panel.querySelectorAll(".cards .card, .lib-item")];
+    const sections = [...panel.querySelectorAll(".lib-year")];
+    btns.forEach((b) => b.addEventListener("click", () => {
+      btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      const f = b.dataset.filter;
+      items.forEach((c) => { c.hidden = Boolean(f) && c.dataset[key] !== f; });
+      sections.forEach((s) => { s.hidden = Boolean(f) && s.dataset.read !== f; });
+    }));
+  });
+})();
+</script>

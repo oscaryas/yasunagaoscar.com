@@ -164,15 +164,16 @@ function loadLibrary() {
 const getCategory = (lib, slug) => lib.categories.find((c) => c.slug === slug) || null;
 
 function libraryIndexHtml(lib) {
-  return `<div class="tiles">${lib.categories
-    .map(
-      (c) => `<a class="tile" href="/library/${c.slug}/">
-  <span class="tile-icon" aria-hidden="true">${esc(c.icon || "")}</span>
-  <span class="tile-name">${esc(c.name)}</span>
-  <span class="tile-count">${c.items.length} ${c.items.length === 1 ? "entry" : "entries"}</span>
-</a>`
-    )
+  const pills = `<div class="filters cat-filters" role="tablist" aria-label="Library category">${lib.categories
+    .map((c, i) => `<button type="button" class="filter" role="tab" aria-selected="${i === 0}" data-cat="${esc(c.slug)}">${esc(c.name)}</button>`)
     .join("")}</div>`;
+  const panels = lib.categories
+    .map((c, i) => `<section class="cat-panel" role="tabpanel" data-cat="${esc(c.slug)}"${i === 0 ? "" : " hidden"}>
+  ${c.intro ? `<p class="cat-intro">${esc(c.intro)}</p>` : ""}
+  ${libraryCategoryHtml(c)}
+</section>`)
+    .join("\n");
+  return pills + panels;
 }
 
 function cardHtml(cat, it) {

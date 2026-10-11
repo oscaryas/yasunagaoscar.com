@@ -285,3 +285,10 @@ a.li-title { color: var(--fg); text-decoration: underline; text-decoration-color
 a.li-title:hover { text-decoration-color: var(--accent); }
 .li-meta { font: 14px var(--sans); color: var(--muted); }
 .li-blurb { flex-basis: 100%; font-size: 14px; color: var(--muted); }
+
+/* ---------- Library category tabs ---------- */
+.cat-filters { margin: 10px 0 22px; }
+.cat-filters .filter { font-size: 15px; padding: 7px 16px; }
+.cat-filters .filter[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.cat-panel[hidden] { display: none; }
+.cat-intro { color: var(--muted); margin: 0 0 14px; }

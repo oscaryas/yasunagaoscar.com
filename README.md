@@ -27,7 +27,7 @@ number starting at 999,999.
 | `/research/` | Research cards grouped by year (`/publications/` forwards here) | `content/research.json`, images in `public/research/` |
 | `/teaching/` | Teaching + Fieldbuilding | `views/teaching.html` |
 | `/posts/<slug>/` | A blog post (listed on About) | `content/posts/<slug>.md` |
-| `/library/` | Library tiles: Books, Movies, Comedians | `content/library.json` |
+| `/library/` | One page with Books, Movies, Games, Jokes tabs | `content/library.json` |
 | `/library/<category>/` | Card grid with status filters | `content/library.json` |
 | `/library/<category>/<item>/` | Notes page (only for items with a `note`) | `content/library.json` |
 | `/llm-test/` | Crawler test and Realistic SEO (lorem ipsum) | `views/llm-test.html` |

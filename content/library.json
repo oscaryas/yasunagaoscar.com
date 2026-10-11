@@ -1,5 +1,5 @@
 {
-  "intro": "Things I've read, watched, and laughed at. Entries with notes open to their own page.",
+  "intro": "Things I've read, watched, played, and laughed at.",
   "categories": [
     {
       "slug": "books",
@@ -88,8 +88,28 @@
       ]
     },
     {
+      "slug": "games",
+      "name": "Games",
+      "icon": "🎮",
+      "intro": "PLACEHOLDER: replace these entries with your games. Suggested statuses: Played, Playing, Favourite.",
+      "items": [
+        {
+          "title": "Placeholder Game One",
+          "creator": "Studio Name",
+          "year": "2017",
+          "status": "Favourite"
+        },
+        {
+          "title": "Placeholder Game Two",
+          "creator": "Studio Name",
+          "year": "2025",
+          "status": "Playing"
+        }
+      ]
+    },
+    {
       "slug": "comedians",
-      "name": "Comedians",
+      "name": "Jokes",
       "icon": "🎤",
       "intro": "PLACEHOLDER: replace these entries with your comedians. Suggested statuses: Seen live, Favourite. Put a favourite special in the blurb.",
       "items": [
