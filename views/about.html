@@ -355,9 +355,13 @@
       setTimeout(() => { if (dialCtx === ctx) stopDial(); }, (t + 1.8) * 1000);
     } catch {}
   }
-  // Uses public/sounds/dialup.mp3 if you add one; otherwise the synthesized modem.
+  // Plays public/sounds/dialup.m4a quietly; falls back to the synthesized modem if the file fails.
+  let dialAudio = null;
   function playMail() {
-    const a = new Audio("/sounds/dialup.mp3");
+    stopDial();
+    if (dialAudio) { dialAudio.pause(); dialAudio = null; }
+    const a = dialAudio = new Audio("/sounds/dialup.m4a");
+    a.volume = 0.3;
     a.play().catch(dialUp);
   }
 
@@ -365,6 +369,7 @@
     restoreWindows();
     setMode(b.dataset.mode);
     if (b.dataset.mode === "cooked") playMail();
+    else { stopDial(); if (dialAudio) { dialAudio.pause(); dialAudio = null; } }
     scrollTo({ top: 0 });
   }));
 

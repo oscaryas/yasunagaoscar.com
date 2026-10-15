@@ -35,8 +35,8 @@ number starting at 999,999.
 All pages share `views/layout.html` (nav, theme toggle, profile sidebar, footer) and `public/assets/site.css`.
 
 ### About page ads
-- Clicking "Turn on ads" plays a synthesized dial-up modem handshake.
-  To use your own sound instead, add `public/sounds/dialup.mp3` (only a clip you have the rights to use).
+- Clicking "Turn on ads" plays `public/sounds/dialup.m4a` (a dial-up modem clip) at 30% volume.
+  If the file fails to load, a synthesized modem handshake plays instead.
 - Every × closes its ad window. Closed windows come back on reload or when the ads are toggled.
 
 ### Profile sidebar
