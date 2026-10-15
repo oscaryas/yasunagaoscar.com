@@ -313,7 +313,7 @@
     win.addEventListener("animationend", done, { once: true });
   }));
 
-  // ---- "You've got mail" on Turn on ads ----
+  // ---- dial-up modem on Turn on ads ----
   const muteBtn = $("#ads-mute");
   let muted = false;
   try { muted = localStorage.getItem("adsMuted") === "1"; } catch {}
@@ -323,46 +323,64 @@
     muteBtn.setAttribute("aria-label", muted ? "Unmute sound" : "Mute sound");
   };
   paintMute();
+  let dialCtx = null;
+  const stopDial = () => { if (dialCtx) { dialCtx.close().catch(() => {}); dialCtx = null; } };
   muteBtn.addEventListener("click", () => {
     muted = !muted;
     try { localStorage.setItem("adsMuted", muted ? "1" : "0"); } catch {}
     paintMute();
-    if (muted) { clearTimeout(speakTimer); if ("speechSynthesis" in window) speechSynthesis.cancel(); }
+    if (muted) stopDial();
   });
 
-  let speakTimer;
-  function chimeAndSpeak() {
+  // Synthesized 56k handshake: dial tone, DTMF digits, ring, answer tone, V.34 warble, then static.
+  function dialUp() {
     try {
+      stopDial();
       const Ctx = window.AudioContext || window.webkitAudioContext;
-      const ctx = new Ctx();
-      const note = (freq, start, dur) => {
-        const o = ctx.createOscillator(), g = ctx.createGain();
-        o.type = "triangle"; o.frequency.value = freq;
-        g.gain.setValueAtTime(0.0001, ctx.currentTime + start);
-        g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + start + 0.02);
-        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + start + dur);
-        o.connect(g).connect(ctx.destination);
-        o.start(ctx.currentTime + start); o.stop(ctx.currentTime + start + dur + 0.05);
+      const ctx = dialCtx = new Ctx();
+      const master = ctx.createGain(); master.gain.value = 0.35; master.connect(ctx.destination);
+      const t0 = ctx.currentTime;
+      const tone = (freqs, start, dur, vol = 0.35, type = "sine") => {
+        freqs.forEach((f) => {
+          const o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = type; o.frequency.value = f;
+          g.gain.setValueAtTime(0, t0 + start);
+          g.gain.linearRampToValueAtTime(vol / freqs.length, t0 + start + 0.01);
+          g.gain.setValueAtTime(vol / freqs.length, t0 + start + dur - 0.01);
+          g.gain.linearRampToValueAtTime(0, t0 + start + dur);
+          o.connect(g).connect(master); o.start(t0 + start); o.stop(t0 + start + dur + 0.02);
+        });
       };
-      note(659.25, 0, 0.18);   // E5
-      note(987.77, 0.16, 0.35); // B5
-      setTimeout(() => ctx.close(), 1000);
+      const noise = (start, dur, vol, lo, hi) => {
+        const n = Math.ceil(ctx.sampleRate * dur), buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
+        for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+        const src = ctx.createBufferSource(); src.buffer = buf;
+        const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = (lo + hi) / 2; bp.Q.value = (lo + hi) / (hi - lo);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0, t0 + start); g.gain.linearRampToValueAtTime(vol, t0 + start + 0.05);
+        g.gain.setValueAtTime(vol, t0 + start + dur - 0.1); g.gain.linearRampToValueAtTime(0, t0 + start + dur);
+        src.connect(bp).connect(g).connect(master); src.start(t0 + start); src.stop(t0 + start + dur);
+      };
+      let t = 0;
+      tone([350, 440], t, 0.7, 0.3); t += 0.75;                       // dial tone
+      const dtmf = { 1:[697,1209], 4:[770,1209], 5:[770,1336], 6:[770,1477], 9:[852,1477], 0:[941,1336] };
+      for (const d of "1905550199") { tone(dtmf[d], t, 0.09, 0.4); t += 0.13; }
+      t += 0.3;
+      tone([440, 480], t, 0.8, 0.25); t += 1.3;                       // ring
+      tone([2100], t, 0.9, 0.3); t += 1.0;                            // answer tone
+      tone([1200, 2250], t, 0.5, 0.3, "square"); t += 0.55;           // V.8 bong
+      for (let i = 0; i < 6; i++) { tone([1650 + (i % 2) * 300, 2000 - (i % 3) * 400], t, 0.12, 0.35, "sawtooth"); t += 0.14; } // warble
+      noise(t, 0.6, 0.5, 800, 2800); t += 0.65;                       // screech
+      tone([1800, 2400], t, 0.4, 0.3, "square"); noise(t, 0.4, 0.3, 300, 1200); t += 0.45;
+      noise(t, 1.6, 0.45, 200, 3400);                                 // training hiss
+      setTimeout(() => { if (dialCtx === ctx) stopDial(); }, (t + 1.8) * 1000);
     } catch {}
-    if ("speechSynthesis" in window) {
-      clearTimeout(speakTimer);
-      speakTimer = setTimeout(() => {
-        if (muted) return;
-        const u = new SpeechSynthesisUtterance("You've got mail!");
-        u.rate = 0.95; u.pitch = 1.05;
-        speechSynthesis.cancel(); speechSynthesis.speak(u);
-      }, 450);
-    }
   }
-  // Uses public/sounds/mail.mp3 if you add one; otherwise the generated chime and voice.
+  // Uses public/sounds/dialup.mp3 if you add one; otherwise the synthesized modem.
   function playMail() {
     if (muted) return;
-    const a = new Audio("/sounds/mail.mp3");
-    a.play().catch(chimeAndSpeak);
+    const a = new Audio("/sounds/dialup.mp3");
+    a.play().catch(dialUp);
   }
 
   $$("[data-mode]").forEach((b) => b.addEventListener("click", () => {

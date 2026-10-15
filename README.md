@@ -12,7 +12,7 @@ npm run build        # writes the site into dist/
 Every push to `main` on GitHub rebuilds and publishes automatically (`.github/workflows/deploy.yml`).
 
 ## What works on the static site
-The ads, popup, × buttons, "You've got mail" sound, countdown, light/dark mode, Library, blog posts, and all pages.
+The ads, popup, × buttons, dial-up sound, countdown, light/dark mode, Library, blog posts, and all pages.
 Claim Form.exe opens the visitor's email app with their message filled in. The visitor counter is a fake
 number starting at 999,999.
 
@@ -35,8 +35,8 @@ number starting at 999,999.
 All pages share `views/layout.html` (nav, theme toggle, profile sidebar, footer) and `public/assets/site.css`.
 
 ### About page ads
-- Clicking "Turn on ads" plays a generated chime and the browser's voice saying "You've got mail!".
-  To use your own sound instead, add `public/sounds/mail.mp3` (only a clip you have the rights to use).
+- Clicking "Turn on ads" plays a synthesized dial-up modem handshake.
+  To use your own sound instead, add `public/sounds/dialup.mp3` (only a clip you have the rights to use).
   Visitors can mute it with the speaker button in the black bar; the choice is remembered.
 - Every × closes its ad window. Closed windows come back on reload or when the ads are toggled.
 
