@@ -37,7 +37,6 @@ All pages share `views/layout.html` (nav, theme toggle, profile sidebar, footer)
 ### About page ads
 - Clicking "Turn on ads" plays a synthesized dial-up modem handshake.
   To use your own sound instead, add `public/sounds/dialup.mp3` (only a clip you have the rights to use).
-  Visitors can mute it with the speaker button in the black bar; the choice is remembered.
 - Every × closes its ad window. Closed windows come back on reload or when the ads are toggled.
 
 ### Profile sidebar

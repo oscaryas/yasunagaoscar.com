@@ -24,12 +24,7 @@
     flex: none; border: 0; border-left: 2px solid var(--lime); background: var(--ink); color: var(--yellow);
     font: bold 13px Tahoma, sans-serif; padding: 0 14px; cursor: pointer;
   }
-  .ads-off:hover, .ads-mute:hover { background: #222; }
-  .ads-mute {
-    flex: none; border: 0; border-left: 2px solid var(--lime); background: var(--ink); color: var(--yellow);
-    font-size: 16px; padding: 0 12px; cursor: pointer;
-  }
-  .ads-mute[aria-pressed="true"] { opacity: 0.7; }
+  .ads-off:hover { background: #222; }
 
   .desk-page { max-width: 1040px; margin: 0 auto; padding: 20px 14px 60px; }
 
@@ -169,7 +164,6 @@
 <div class="desk">
   <div class="adbar">
     <div class="ticker"><span>Lorem ipsum dolor sit amet</span></div>
-    <button class="ads-mute" type="button" id="ads-mute" aria-pressed="false" aria-label="Mute sound">🔊</button>
     <button class="ads-off" type="button" data-mode="clean">Turn off the ads</button>
   </div>
 
@@ -314,23 +308,8 @@
   }));
 
   // ---- dial-up modem on Turn on ads ----
-  const muteBtn = $("#ads-mute");
-  let muted = false;
-  try { muted = localStorage.getItem("adsMuted") === "1"; } catch {}
-  const paintMute = () => {
-    muteBtn.textContent = muted ? "🔇" : "🔊";
-    muteBtn.setAttribute("aria-pressed", String(muted));
-    muteBtn.setAttribute("aria-label", muted ? "Unmute sound" : "Mute sound");
-  };
-  paintMute();
   let dialCtx = null;
   const stopDial = () => { if (dialCtx) { dialCtx.close().catch(() => {}); dialCtx = null; } };
-  muteBtn.addEventListener("click", () => {
-    muted = !muted;
-    try { localStorage.setItem("adsMuted", muted ? "1" : "0"); } catch {}
-    paintMute();
-    if (muted) stopDial();
-  });
 
   // Synthesized 56k handshake: dial tone, DTMF digits, ring, answer tone, V.34 warble, then static.
   function dialUp() {
@@ -378,7 +357,6 @@
   }
   // Uses public/sounds/dialup.mp3 if you add one; otherwise the synthesized modem.
   function playMail() {
-    if (muted) return;
     const a = new Audio("/sounds/dialup.mp3");
     a.play().catch(dialUp);
   }
