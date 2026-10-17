@@ -16,7 +16,7 @@
   document.querySelectorAll(".nav-links a, .nav-name").forEach((a) => a.addEventListener("click", () => {
     try {
       if (localStorage.getItem("aboutMode") === "cooked") return;
-      localStorage.setItem("arrowSteps", String(Math.min(+(localStorage.getItem("arrowSteps") || 0) + 1, 7)));
+      localStorage.setItem("arrowPending", "1"); // applied silently the next time the About page loads
     } catch {}
   }));
   const yr = document.getElementById("yr");
