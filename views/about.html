@@ -170,13 +170,9 @@
   @media (max-width: 520px) { .ads-cta { margin-top: 0; } }
   /* Red arrow that keeps growing until the ads are turned on */
   .ads-arrow {
-    color: #e00; font-size: 22px; line-height: 1; margin-right: 6px; transform-origin: right center;
-    animation: arrowgrow 90s linear forwards, nudge 0.8s ease-in-out infinite alternate;
-    pointer-events: none; user-select: none;
+    display: inline-block; color: #e00; font-size: 22px; line-height: 1; margin-right: 6px;
+    transform-origin: right center; pointer-events: none; user-select: none; position: relative; z-index: 2;
   }
-  @keyframes arrowgrow { to { transform: scale(5); } }
-  @keyframes nudge { to { translate: -6px 0; } }
-  @media (prefers-reduced-motion: reduce) { .ads-arrow { animation: none; transform: scale(2); } }
 
 </style>
 
@@ -342,6 +338,21 @@
     if (!seen) popupTimer = setTimeout(() => { popup.hidden = false; }, 8000);
   };
   setMode(mode === "cooked" ? "cooked" : "clean");
+
+  // ---- red arrow: grows while the ads stay off (JS so Reduce Motion can't stop it) ----
+  const arrow = $(".ads-arrow");
+  let arrowStart = performance.now();
+  const growArrow = (now) => {
+    if (!document.body.classList.contains("clean")) { arrowStart = now; arrow.style.transform = ""; }
+    else {
+      const t = Math.min((now - arrowStart) / 60000, 1);        // reaches full size after 60s
+      const scale = 1 + 7 * t;                                   // 1x -> 8x
+      const wiggle = Math.sin(now / 250) * 4;
+      arrow.style.transform = `translateX(${wiggle}px) scale(${scale})`;
+    }
+    requestAnimationFrame(growArrow);
+  };
+  requestAnimationFrame(growArrow);
   // ---- closable windows: × hides a window until reload or the next mode switch ----
   const restoreWindows = () => $$(".desk .win").forEach((w) => { w.hidden = false; w.classList.remove("closing"); });
   $$(".desk .win-close").forEach((x) => x.addEventListener("click", () => {
