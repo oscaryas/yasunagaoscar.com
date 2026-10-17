@@ -131,6 +131,19 @@
   .status { grid-column: 1 / -1; margin: 0; padding: 8px 10px; background: #fff; border: 1px solid var(--ink); }
   .status[hidden] { display: none; }
 
+  /* Testimonials */
+  .ad-quotes .win-body { background: #fff; }
+  .ad-quotes h2 { color: var(--title); text-align: center; }
+  .ad-quotes .stars { text-align: center; color: #e6a800; font-size: 22px; letter-spacing: 2px; margin: 0 0 12px; }
+  .ad-quotes .quotes { display: grid; gap: 14px; grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 760px) { .ad-quotes .quotes { grid-template-columns: 1fr; } }
+  .ad-quotes blockquote {
+    margin: 0; padding: 12px 14px; background: #ffffe0; border: 2px dashed var(--red);
+    font: italic 14px/1.5 Georgia, "Times New Roman", serif;
+  }
+  .ad-quotes blockquote p { margin: 0 0 8px; }
+  .ad-quotes cite { display: block; font: bold 12px Tahoma, Verdana, sans-serif; color: #333; font-style: normal; }
+
   .desk-foot { margin-top: 28px; text-align: center; color: #fff; font-size: 12px; }
   .blink { color: var(--yellow); animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { visibility: hidden; } }
@@ -155,6 +168,15 @@
   }
   .ads-on:active { border-color: #000 #fff #fff #000; }
   @media (max-width: 520px) { .ads-cta { margin-top: 0; } }
+  /* Red arrow that keeps growing until the ads are turned on */
+  .ads-arrow {
+    color: #e00; font-size: 22px; line-height: 1; margin-right: 6px; transform-origin: right center;
+    animation: arrowgrow 90s linear forwards, nudge 0.8s ease-in-out infinite alternate;
+    pointer-events: none; user-select: none;
+  }
+  @keyframes arrowgrow { to { transform: scale(5); } }
+  @keyframes nudge { to { translate: -6px 0; } }
+  @media (prefers-reduced-motion: reduce) { .ads-arrow { animation: none; transform: scale(2); } }
 
 </style>
 
@@ -236,6 +258,28 @@
           </form>
         </div>
       </section>
+
+      <section class="win ad ad-quotes span-12" aria-labelledby="quotes-h">
+        <div class="win-title"><span>⭐ Testimonials - Guestbook.htm</span><span class="btns"><span aria-hidden="true">_</span><span aria-hidden="true">□</span><button type="button" class="xbtn win-close" aria-label="Close this ad">×</button></span></div>
+        <div class="win-body">
+          <h2 id="quotes-h">What people are saying about Oscar</h2>
+          <p class="stars" aria-hidden="true">★★★★★</p>
+          <div class="quotes">
+            <blockquote>
+              <p>Oscar Yasunaga is a dragon, widely recognized among Toronto’s culinary community for his sustained appetite for shumai. His consumption of the steamed dumpling is frequent and remarkably consistent, with a stated preference for traditional pork-and-shrimp preparations served in quantities well beyond the conventional portion.</p>
+              <cite>— Toronto’s culinary community</cite>
+            </blockquote>
+            <blockquote>
+              <p>He is a devoted consumer of specialty tsukemen, which he sources exclusively from us. He is our most loyal customer, though he did once pause mid-aisle to ask a shelf-stocking employee, “Do you mind, goblin?”</p>
+              <cite>— Staff, Wendy’s CD, Candies, and More (compact discs, confectionery, and artisanal noodles since forever)</cite>
+            </blockquote>
+            <blockquote>
+              <p>Outside of dining, he is known for repeatedly watching The Odyssey, reportedly with a tray of shumai at hand. His identity as a dragon is frequently cited as the source of his discerning palate. His enthusiasm for shumai, tsukemen, and Homeric voyages remains undiminished.</p>
+              <cite>— Those familiar with his habits</cite>
+            </blockquote>
+          </div>
+        </div>
+      </section>
     </div>
 
     <div class="desk-foot">
@@ -257,6 +301,7 @@
 <!-- ================= CLEAN (default) ================= -->
 <div class="clean-about prose">
   <div class="ads-cta">
+    <span class="ads-arrow" aria-hidden="true">➜</span>
     <button class="ads-on" type="button" data-mode="cooked">Turn on ads</button>
   </div>
   <h1>About Oscar</h1>
