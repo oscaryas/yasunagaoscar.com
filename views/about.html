@@ -168,17 +168,6 @@
   }
   .ads-on:active { border-color: #000 #fff #fff #000; }
   @media (max-width: 520px) { .ads-cta { margin-top: 0; } }
-  /* Red arrow that keeps growing until the ads are turned on */
-  .ads-arrow {
-    display: inline-block; color: #e00; font-size: 22px; line-height: 1; margin-right: 6px;
-    transform-origin: right center; pointer-events: none; user-select: none; position: relative; z-index: 2;
-  }
-  /* Final stage: fills the screen and spins until clicked */
-  .ads-arrow.max {
-    position: fixed; inset: 0; margin: 0; z-index: 100; display: grid; place-items: center;
-    font-size: 150vmax; pointer-events: auto; cursor: pointer; transform-origin: center;
-  }
-  .ads-arrow[hidden] { display: none; }
 
 </style>
 
@@ -303,7 +292,6 @@
 <!-- ================= CLEAN (default) ================= -->
 <div class="clean-about prose">
   <div class="ads-cta">
-    <span class="ads-arrow" aria-hidden="true">➜</span>
     <button class="ads-on" type="button" data-mode="cooked">Turn on ads</button>
   </div>
   <h1>About Oscar</h1>
@@ -345,26 +333,6 @@
   };
   setMode(mode === "cooked" ? "cooked" : "clean");
 
-  // ---- red arrow: one size bigger for every nav tab clicked without turning the ads on ----
-  // site.js sets "arrowPending" on a tab click; the step is applied here, before first paint, so the
-  // visitor only ever sees the new size. At the maximum it fills the screen and spins until clicked.
-  const MAX_STEPS = 7;
-  const arrow = $(".ads-arrow");
-  const ls = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } },
-               set: (k, v) => { try { localStorage.setItem(k, v); } catch {} },
-               del: (k) => { try { localStorage.removeItem(k); } catch {} } };
-  let steps = Math.min(+(ls.get("arrowSteps") || 0), MAX_STEPS);
-  if (ls.get("arrowPending")) { ls.del("arrowPending"); steps = Math.min(steps + 1, MAX_STEPS); ls.set("arrowSteps", String(steps)); }
-  const removeArrow = () => { arrow.hidden = true; ls.set("arrowGone", "1"); ls.del("arrowSteps"); };
-  if (ls.get("arrowGone")) arrow.hidden = true;
-  const growArrow = (now) => {
-    if (arrow.hidden || !document.body.classList.contains("clean")) { arrow.style.transform = ""; arrow.classList.remove("max"); }
-    else if (steps >= MAX_STEPS) { arrow.classList.add("max"); arrow.style.transform = `rotate(${(now / 8) % 360}deg)`; }
-    else { arrow.classList.remove("max"); arrow.style.transform = `translateX(${Math.sin(now / 250) * 4}px) scale(${1 + steps})`; }
-    requestAnimationFrame(growArrow);
-  };
-  growArrow(performance.now());
-  arrow.addEventListener("click", () => { removeArrow(); $(".ads-on").click(); });
   // ---- closable windows: × hides a window until reload or the next mode switch ----
   const restoreWindows = () => $$(".desk .win").forEach((w) => { w.hidden = false; w.classList.remove("closing"); });
   $$(".desk .win-close").forEach((x) => x.addEventListener("click", () => {
@@ -436,7 +404,7 @@
   $$("[data-mode]").forEach((b) => b.addEventListener("click", () => {
     restoreWindows();
     setMode(b.dataset.mode);
-    if (b.dataset.mode === "cooked") { playMail(); steps = 0; ls.del("arrowSteps"); ls.del("arrowPending"); }
+    if (b.dataset.mode === "cooked") playMail();
     else { stopDial(); if (dialAudio) { dialAudio.pause(); dialAudio = null; } }
     scrollTo({ top: 0 });
   }));
