@@ -345,8 +345,8 @@
   const growArrow = (now) => {
     if (!document.body.classList.contains("clean")) { arrowStart = now; arrow.style.transform = ""; }
     else {
-      const t = Math.min((now - arrowStart) / 60000, 1);        // reaches full size after 60s
-      const scale = 1 + 7 * t;                                   // 1x -> 8x
+      const step = Math.min(Math.floor((now - arrowStart) / 5000), 7); // jumps one size every 5s
+      const scale = 1 + step;                                             // 1x -> 8x in 7 jumps
       const wiggle = Math.sin(now / 250) * 4;
       arrow.style.transform = `translateX(${wiggle}px) scale(${scale})`;
     }
