@@ -27,6 +27,11 @@
       "icon": "linkedin",
       "label": "LinkedIn",
       "url": "https://www.linkedin.com/in/oscaryas/"
+    },
+    {
+      "icon": "x",
+      "label": "X",
+      "url": "https://x.com/oscar_yasunaga"
     }
   ]
 }
