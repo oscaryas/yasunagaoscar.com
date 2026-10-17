@@ -339,17 +339,13 @@
   };
   setMode(mode === "cooked" ? "cooked" : "clean");
 
-  // ---- red arrow: grows while the ads stay off (JS so Reduce Motion can't stop it) ----
+  // ---- red arrow: one size bigger for every nav tab clicked without turning the ads on ----
+  // site.js increments "arrowSteps" on each tab click; turning the ads on resets it.
   const arrow = $(".ads-arrow");
-  let arrowStart = performance.now();
+  const arrowSteps = () => { try { return Math.min(+(localStorage.getItem("arrowSteps") || 0), 7); } catch { return 0; } };
   const growArrow = (now) => {
-    if (!document.body.classList.contains("clean")) { arrowStart = now; arrow.style.transform = ""; }
-    else {
-      const step = Math.min(Math.floor((now - arrowStart) / 5000), 7); // jumps one size every 5s
-      const scale = 1 + step;                                             // 1x -> 8x in 7 jumps
-      const wiggle = Math.sin(now / 250) * 4;
-      arrow.style.transform = `translateX(${wiggle}px) scale(${scale})`;
-    }
+    if (!document.body.classList.contains("clean")) arrow.style.transform = "";
+    else arrow.style.transform = `translateX(${Math.sin(now / 250) * 4}px) scale(${1 + arrowSteps()})`;
     requestAnimationFrame(growArrow);
   };
   requestAnimationFrame(growArrow);
@@ -424,7 +420,7 @@
   $$("[data-mode]").forEach((b) => b.addEventListener("click", () => {
     restoreWindows();
     setMode(b.dataset.mode);
-    if (b.dataset.mode === "cooked") playMail();
+    if (b.dataset.mode === "cooked") { playMail(); try { localStorage.removeItem("arrowSteps"); } catch {} }
     else { stopDial(); if (dialAudio) { dialAudio.pause(); dialAudio = null; } }
     scrollTo({ top: 0 });
   }));

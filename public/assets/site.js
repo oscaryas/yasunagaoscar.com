@@ -12,6 +12,13 @@
     paint();
   });
   paint();
+  // Every nav tab click (anything but "Turn on ads") makes the About page's red arrow one size bigger
+  document.querySelectorAll(".nav-links a, .nav-name").forEach((a) => a.addEventListener("click", () => {
+    try {
+      if (localStorage.getItem("aboutMode") === "cooked") return;
+      localStorage.setItem("arrowSteps", String(Math.min(+(localStorage.getItem("arrowSteps") || 0) + 1, 7)));
+    } catch {}
+  }));
   const yr = document.getElementById("yr");
   if (yr) yr.textContent = new Date().getFullYear();
 })();
