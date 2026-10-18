@@ -176,8 +176,7 @@
       "intro": "Things that made me laugh.",
       "items": [
         {
-          "title": "GLM 5.3 finds the secret joke",
-          "blurb": "Asked what the hidden joke in my LLM Test page was, GLM 5.3 read the name very carefully.",
+          "title": "GLM 5.3",
           "image": "/jokes/glm-gay-sauna.png",
           "alt": "Chat screenshot: GLM 5.3 answers that YASUNAGA is a perfect anagram of GAY SAUNA"
         }
