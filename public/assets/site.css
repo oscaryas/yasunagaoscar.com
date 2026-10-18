@@ -331,3 +331,6 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 .shot { margin: 16px 0; }
 .shot img { display: block; width: 100%; border: 1px solid var(--rule); border-radius: 8px; }
 .shot figcaption { margin-top: 6px; font-size: 13.5px; color: var(--muted); }
+.collage-item.collage-text { max-width: 420px; }
+.collage-quote { margin: 0; padding: 22px 22px 16px; background: #fffbe6; color: #222; border: 1px solid var(--rule); border-radius: 2px 2px 0 0; box-shadow: 0 8px 24px rgba(0,0,0,.18); font: italic 17px/1.5 var(--serif); }
+.collage-item.collage-text figcaption { background: #fffbe6; }
