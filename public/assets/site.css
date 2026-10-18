@@ -316,3 +316,18 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 .friends { margin: 0 0 0 36px; font-size: 1.15rem; line-height: 1.7; }
 .friends a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
 .friends a:hover { color: var(--accent); }
+
+/* Library: collage layout (Jokes) */
+.collage { display: flex; flex-wrap: wrap; gap: 28px 24px; justify-content: center; padding: 12px 0; }
+.collage-item { display: block; max-width: 560px; width: 100%; margin: 0; color: var(--fg); text-decoration: none; transform: rotate(var(--tilt, 0deg)); transition: transform .15s ease; }
+.collage-item:hover { transform: rotate(0deg) scale(1.02); }
+.collage-item figure { margin: 0; }
+.collage-item img, .collage-item figure { display: block; width: 100%; }
+.collage-item img { padding: 10px 10px 0; background: #fff; border: 1px solid var(--rule); border-radius: 2px; box-shadow: 0 8px 24px rgba(0,0,0,.18); box-sizing: border-box; }
+.collage-item figcaption { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px 12px; background: #fff; color: #222; border: 1px solid var(--rule); border-top: 0; border-radius: 0 0 2px 2px; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+.collage-item .card-blurb { font-size: 13.5px; color: #555; }
+
+/* Screenshot figure (LLM Test) */
+.shot { margin: 16px 0; }
+.shot img { display: block; width: 100%; border: 1px solid var(--rule); border-radius: 8px; }
+.shot figcaption { margin-top: 6px; font-size: 13.5px; color: var(--muted); }

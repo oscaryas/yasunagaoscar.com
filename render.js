@@ -215,11 +215,25 @@ function posterHtml(cat, it) {
     : `<div class="card poster" ${attrs}>${inner}</div>`;
 }
 
+// Collage: images pinned at slight angles with a caption, like photos on a corkboard
+function collageItemHtml(cat, it, i) {
+  const tilt = [-2.5, 1.5, -1, 2.5, -1.5, 1][i % 6];
+  const cap = `<figcaption><span class="card-title">${esc(it.title)}</span>${it.blurb ? `<span class="card-blurb">${esc(it.blurb)}</span>` : ""}</figcaption>`;
+  const img = it.image ? `<img src="${esc(it.image)}" alt="${esc(it.alt || it.title)}" loading="lazy">` : "";
+  const attrs = `class="collage-item" style="--tilt:${tilt}deg" data-status="${esc(it.status || "")}" data-read="${esc(it.read || "")}"`;
+  return it.hasNote
+    ? `<a ${attrs} href="/library/${cat.slug}/${it.slug}/"><figure>${img}${cap}</figure></a>`
+    : `<figure ${attrs}>${img}${cap}</figure>`;
+}
+
 function libraryCategoryHtml(cat) {
   const list = cat.layout === "list";
   const posters = cat.layout === "posters";
+  const collage = cat.layout === "collage";
   const group = (items) => list
     ? `<ul class="lib-list">${items.map((it) => listItemHtml(cat, it)).join("")}</ul>`
+    : collage
+    ? `<div class="collage">${items.map((it, i) => collageItemHtml(cat, it, i)).join("")}</div>`
     : posters
     ? `<div class="cards posters">${items.map((it) => posterHtml(cat, it)).join("")}</div>`
     : `<div class="cards">${items.map((it) => cardHtml(cat, it)).join("")}</div>`;
