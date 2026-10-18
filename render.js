@@ -56,6 +56,17 @@ function sidebarHtml() {
   </aside>`;
 }
 
+// Cache-busting: a short hash of the CSS and JS, appended to their URLs in layout.html
+const ASSET_VERSION = (() => {
+  const crypto = require("crypto");
+  const h = crypto.createHash("md5");
+  for (const f of ["site.css", "site.js"]) {
+    const fp = path.join(__dirname, "public", "assets", f);
+    if (fs.existsSync(fp)) h.update(fs.readFileSync(fp));
+  }
+  return h.digest("hex").slice(0, 8);
+})();
+
 function renderPage(view, { title, description, active, bodyClass = "", vars = {} }) {
   const navLinks = NAV.map(
     (n) => `<li><a href="${n.href}"${n.key === active ? ' aria-current="page"' : ""}${n.external ? ' target="_blank" rel="noopener"' : ""}>${n.label}</a></li>`
@@ -68,6 +79,7 @@ function renderPage(view, { title, description, active, bodyClass = "", vars = {
     navLinks,
     sidebar: sidebarHtml(),
     repoUrl: esc(siteConfig().repoUrl),
+    assetVersion: ASSET_VERSION,
     content,
   });
 }
