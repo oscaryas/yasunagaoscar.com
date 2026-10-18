@@ -317,20 +317,16 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 .friends a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
 .friends a:hover { color: var(--accent); }
 
-/* Library: collage layout (Jokes) */
-.collage { display: flex; flex-wrap: wrap; gap: 28px 24px; justify-content: center; padding: 12px 0; }
-.collage-item { display: block; max-width: 560px; width: 100%; margin: 0; color: var(--fg); text-decoration: none; transform: rotate(var(--tilt, 0deg)); transition: transform .15s ease; }
-.collage-item:hover { transform: rotate(0deg) scale(1.02); }
-.collage-item figure { margin: 0; }
-.collage-item img, .collage-item figure { display: block; width: 100%; }
-.collage-item img { padding: 10px 10px 0; background: #fff; border: 1px solid var(--rule); border-radius: 2px; box-shadow: 0 8px 24px rgba(0,0,0,.18); box-sizing: border-box; }
-.collage-item figcaption { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px 12px; background: #fff; color: #222; border: 1px solid var(--rule); border-top: 0; border-radius: 0 0 2px 2px; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
-.collage-item .card-blurb { font-size: 13.5px; color: #555; }
-
-/* Screenshot figure (LLM Test) */
-.shot { margin: 16px 0; }
-.shot img { display: block; width: 100%; border: 1px solid var(--rule); border-radius: 8px; }
-.shot figcaption { margin-top: 6px; font-size: 13.5px; color: var(--muted); }
-.collage-item.collage-text { max-width: 420px; }
-.collage-quote { margin: 0; padding: 22px 22px 16px; background: #fffbe6; color: #222; border: 1px solid var(--rule); border-radius: 2px 2px 0 0; box-shadow: 0 8px 24px rgba(0,0,0,.18); font: italic 17px/1.5 var(--serif); }
-.collage-item.collage-text figcaption { background: #fffbe6; }
+/* Library: collage layout (Jokes) — masonry scrapbook */
+.collage { columns: 2 300px; column-gap: 20px; padding: 8px 0; }
+.collage-item { display: block; break-inside: avoid; margin: 0 0 20px; color: var(--fg); text-decoration: none; }
+.collage-item figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.collage-item img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.14); background: #fff; }
+.collage-item figcaption { display: flex; flex-direction: column; gap: 2px; padding: 0 2px; }
+.collage-item figcaption .card-title { font: 600 13px/1.3 var(--sans, system-ui, sans-serif); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.collage-item .card-blurb { font-size: 13.5px; color: var(--muted); }
+.collage-text figure, figure.collage-text { gap: 12px; padding: 30px 26px 22px; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+:root[data-theme="dark"] .collage-text figure, figure.collage-text { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); }
+.collage-quote { margin: 0; font: 400 20px/1.45 var(--serif); color: var(--fg); }
+.collage-item.collage-text figcaption .card-title::before { content: "\2014 "; }
+:root[data-theme="dark"] .collage-item img { background: transparent; }
