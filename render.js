@@ -227,27 +227,11 @@ function posterHtml(cat, it) {
     : `<div class="card poster" ${attrs}>${inner}</div>`;
 }
 
-// Collage: images pinned at slight angles with a caption, like photos on a corkboard
-function collageItemHtml(cat, it, i) {
-  const tilt = [-2.5, 1.5, -1, 2.5, -1.5, 1][i % 6];
-  const cap = `<figcaption><span class="card-title">${esc(it.title)}</span>${it.blurb ? `<span class="card-blurb">${esc(it.blurb)}</span>` : ""}</figcaption>`;
-  const img = it.image
-    ? `<img src="${esc(it.image)}" alt="${esc(it.alt || it.title)}" loading="lazy">`
-    : it.quote ? `<blockquote class="collage-quote">${esc(it.quote).replace(/\n/g, "<br>")}</blockquote>` : "";
-  const attrs = `class="collage-item${it.image ? "" : " collage-text"}" style="--tilt:${tilt}deg" data-status="${esc(it.status || "")}" data-read="${esc(it.read || "")}"`;
-  return it.hasNote
-    ? `<a ${attrs} href="/library/${cat.slug}/${it.slug}/"><figure>${img}${cap}</figure></a>`
-    : `<figure ${attrs}>${img}${cap}</figure>`;
-}
-
 function libraryCategoryHtml(cat) {
   const list = cat.layout === "list";
   const posters = cat.layout === "posters";
-  const collage = cat.layout === "collage";
   const group = (items) => list
     ? `<ul class="lib-list">${items.map((it) => listItemHtml(cat, it)).join("")}</ul>`
-    : collage
-    ? `<div class="collage">${items.map((it, i) => collageItemHtml(cat, it, i)).join("")}</div>`
     : posters
     ? `<div class="cards posters">${items.map((it) => posterHtml(cat, it)).join("")}</div>`
     : `<div class="cards">${items.map((it) => cardHtml(cat, it)).join("")}</div>`;
@@ -277,20 +261,6 @@ function libraryCategoryHtml(cat) {
 </section>`)
     .join("\n");
   return filters + sections;
-}
-
-// Blog posts rendered as cooked ad windows on the About page
-function adPostsHtml(posts) {
-  return posts
-    .map((p) => `      <article class="win ad ad-post span-6" aria-labelledby="post-${esc(p.slug)}">
-        <div class="win-title"><span>📢 ${esc(p.date)}</span><span class="btns"><button type="button" class="xbtn win-close" aria-label="Close this ad">×</button></span></div>
-        <div class="win-body">
-          <h2 id="post-${esc(p.slug)}"><a href="/posts/${p.slug}/">${esc(p.title)}</a></h2>
-          ${p.summary ? `<p>${esc(p.summary)}</p>` : ""}
-          <a class="btn go" data-ad="post-${esc(p.slug)}" href="/posts/${p.slug}/">Read more!!!</a>
-        </div>
-      </article>`)
-    .join("\n");
 }
 
 // ---------- Research (content/research.json) ----------
@@ -336,7 +306,7 @@ function researchHtml() {
 
 module.exports = {
   researchHtml,
-  adPostsHtml, sidebarHtml, siteConfig,
+  sidebarHtml, siteConfig,
   renderPage, listPosts, getPost, postListHtml, esc, NAV,
   loadLibrary, getCategory, libraryIndexHtml, libraryCategoryHtml,
 };

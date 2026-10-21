@@ -53,18 +53,15 @@ function write(urlPath, html) {
 }
 const page = (view, opts) => r.renderPage(view, { description: DESC, ...opts });
 
-// Fresh output folder, with public/ copied in (CSS, JS, photo, sounds...)
+// Fresh output folder, with public/ copied in (CSS, JS, photo...)
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.cpSync(path.join(ROOT, "public"), OUT, { recursive: true });
 
 // About
 const posts = r.listPosts();
 write("/", page("about", {
-  title: "Oscar Yasunaga", active: "about", bodyClass: "clean",
-  vars: {
-    posts: r.postListHtml(posts), adPosts: r.adPostsHtml(posts),
-    calendlyUrl: r.esc(site.calendlyUrl), contactEmail: r.esc(site.contactEmail),
-  },
+  title: "Oscar Yasunaga", active: "about",
+  vars: { posts: r.postListHtml(posts) },
 }));
 
 // Simple pages

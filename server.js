@@ -9,7 +9,7 @@ const Database = require("better-sqlite3");
 const nodemailer = require("nodemailer");
 const { marked } = require("marked");
 const {
-  renderPage, researchHtml, listPosts, getPost, postListHtml, adPostsHtml, esc,
+  renderPage, researchHtml, listPosts, getPost, postListHtml, esc,
   loadLibrary, getCategory, libraryIndexHtml, libraryCategoryHtml,
 } = require("./render");
 
@@ -148,8 +148,8 @@ app.use((req, res, next) => {
 });
 
 app.get("/", page("about", {
-  title: "Oscar Yasunaga", active: "about", bodyClass: "clean",
-  vars: () => { const posts = listPosts(); return { posts: postListHtml(posts), adPosts: adPostsHtml(posts), calendlyUrl: esc(CALENDLY_URL), contactEmail: esc(CONTACT_EMAIL) }; },
+  title: "Oscar Yasunaga", active: "about",
+  vars: () => ({ posts: postListHtml(listPosts()) }),
 }));
 app.get("/teaching/", page("teaching", { title: "Teaching/Fieldbuilding - Oscar Yasunaga", active: "teaching" }));
 app.get("/cv/", page("cv", { title: "CV - Oscar Yasunaga", active: "cv" }));
@@ -295,7 +295,6 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`yasunagaoscar.com running at http://localhost:${PORT}`);
   if (!mailer) console.log("SMTP_HOST not set: inquiries are stored in SQLite only.");
-  if (!CALENDLY_URL) console.log("CALENDLY_URL not set: meeting ads fall back to the claim form.");
 });
 
 for (const sig of ["SIGINT", "SIGTERM"]) process.on(sig, () => { db.close(); process.exit(0); });

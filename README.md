@@ -1,7 +1,6 @@
 # yasunagaoscar.com
 
-Academic personal site in the style of andreimuresanu.com. The About page opens in a simple version with a
-"Turn on ads" button that switches to a parody early-2000s spam-ad page. The site is built as static files
+Academic personal site in the style of andreimuresanu.com. The site is built as static files
 and hosted on GitHub Pages. See **DEPLOY.md** to put it live.
 
 ## Build
@@ -12,9 +11,7 @@ npm run build        # writes the site into dist/
 Every push to `main` on GitHub rebuilds and publishes automatically (`.github/workflows/deploy.yml`).
 
 ## What works on the static site
-The ads, popup, × buttons, dial-up sound, countdown, light/dark mode, Library, blog posts, and all pages.
-Claim Form.exe opens the visitor's email app with their message filled in. The visitor counter is a fake
-number starting at 999,999.
+Light/dark mode, Library, blog posts, and all pages.
 
 ## Optional server (not used for GitHub Pages)
 `server.js` is the earlier Express version with a real form backend, visitor counter and click tracking. It is kept for later and is not part of the static build.
@@ -22,7 +19,7 @@ number starting at 999,999.
 ## Pages
 | Path | What it is | Edit in |
 |---|---|---|
-| `/` | About. Clean by default with the Blog list below the bio; "Turn on ads" switches to cooked (also `/?mode=cooked`) | `views/about.html` |
+| `/` | About, with the Blog list below the bio | `views/about.html` |
 | `/cv/` | CV placeholder (in development) | `views/cv.html` |
 | `/research/` | Research cards grouped by year (`/publications/` forwards here) | `content/research.json`, images in `public/research/` |
 | `/teaching/` | Teaching/Fieldbuilding | `views/teaching.html` |
@@ -33,11 +30,6 @@ number starting at 999,999.
 | `/llm-test/` | Crawler test and Realistic SEO (lorem ipsum) | `views/llm-test.html` |
 
 All pages share `views/layout.html` (nav, theme toggle, profile sidebar, footer) and `public/assets/site.css`.
-
-### About page ads
-- Clicking "Turn on ads" plays `public/sounds/dialup.m4a` (a dial-up modem clip) at 30% volume.
-  If the file fails to load, a synthesized modem handshake plays instead.
-- Every × closes its ad window. Closed windows come back on reload or when the ads are toggled.
 
 ### Profile sidebar
 Edit `content/profile.json` for the name, optional title line, and links. Icons available: `institution`, `email`,
@@ -75,7 +67,7 @@ build.js         Builds the static site into dist/
 render.js        Page templating shared by the build and the optional server
 content/         site.json, profile.json, research.json, library.json, posts/
 views/           Page templates
-public/          Static files copied as-is (CSS, JS, photo, sounds/)
+public/          Static files copied as-is (CSS, JS, photo)
 .github/         GitHub Pages deploy workflow
 server.js        Optional Express server (not used on GitHub Pages)
 ```
@@ -83,7 +75,7 @@ server.js        Optional Express server (not used on GitHub Pages)
 ## Server API (optional server only)
 | Method | Path | Purpose |
 |---|---|---|
-| GET  | `/api/config` | Calendly URL and contact email for the ads |
+| GET  | `/api/config` | Calendly URL and contact email |
 | POST | `/api/contact` | Claim form. Stored, then emailed. 5 per hour per IP |
 | GET/POST | `/api/visitors` | Unique visitor-days counter |
 | POST | `/api/click` | Logs which ad was clicked |
