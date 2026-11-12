@@ -263,6 +263,20 @@ function libraryCategoryHtml(cat) {
   return filters + sections;
 }
 
+// Blog posts rendered as cooked ad windows on the About page
+function adPostsHtml(posts) {
+  return posts
+    .map((p) => `      <article class="win ad ad-post span-6" aria-labelledby="post-${esc(p.slug)}">
+        <div class="win-title"><span>📢 ${esc(p.date)}</span><span class="btns"><button type="button" class="xbtn win-close" aria-label="Close this ad">×</button></span></div>
+        <div class="win-body">
+          <h2 id="post-${esc(p.slug)}"><a href="/posts/${p.slug}/">${esc(p.title)}</a></h2>
+          ${p.summary ? `<p>${esc(p.summary)}</p>` : ""}
+          <a class="btn go" data-ad="post-${esc(p.slug)}" href="/posts/${p.slug}/">Read more!!!</a>
+        </div>
+      </article>`)
+    .join("\n");
+}
+
 // ---------- Research (content/research.json) ----------
 function researchHtml() {
   const data = JSON.parse(fs.readFileSync(path.join(CONTENT, "research.json"), "utf8"));
@@ -306,7 +320,7 @@ function researchHtml() {
 
 module.exports = {
   researchHtml,
-  sidebarHtml, siteConfig,
+  adPostsHtml, sidebarHtml, siteConfig,
   renderPage, listPosts, getPost, postListHtml, esc, NAV,
   loadLibrary, getCategory, libraryIndexHtml, libraryCategoryHtml,
 };

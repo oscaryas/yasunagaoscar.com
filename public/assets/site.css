@@ -7,6 +7,8 @@
   --surface: #f5f6f8;
   --accent: #0a58ca;
   --accent-ink: #ffffff;
+  --desk: #008080;
+  --desk-2: #007373;
   --sans: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
   --serif: Georgia, "Times New Roman", serif;
   color-scheme: light;
@@ -19,6 +21,8 @@
   --surface: #4a4d51;
   --accent: #9cc4ff;
   --accent-ink: #10213a;
+  --desk: #0d3b3b;
+  --desk-2: #0a3131;
   color-scheme: dark;
 }
 
@@ -312,4 +316,3 @@ a.card.poster:hover .poster-art { outline: 2px solid var(--accent); }
 .friends { margin: 0 0 0 36px; font-size: 1.15rem; line-height: 1.7; }
 .friends a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
 .friends a:hover { color: var(--accent); }
-
